@@ -14,7 +14,7 @@
                     @csrf
 
                     <span class="login100-form-title">
-                        Member Login
+                       Se Connecter
                     </span>
 
                     <!-- Session Status -->
@@ -46,7 +46,7 @@
 
                     <!-- Password -->
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input id="password" class="input100" type="password" name="password" required placeholder="Password">
+                        <input id="password" class="input100" type="password" name="password" required placeholder="Mot de passe">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -57,28 +57,28 @@
                     <div class="block mt-4">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm" name="remember">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                            <span class="ml-2 text-sm text-gray-600">{{ __('Souviens moi') }}</span>
                         </label>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn">
-                            Login
+                            Se Connecter
                         </button>
                     </div>
 
                     <div class="text-center p-t-12">
                         <span class="txt1">
-                            Forgot
+                        Vous avez oublié 
                         </span>
                         <a class="txt2" href="{{ route('password.request') }}">
-                            Your Password?
+                        Votre mot de passe?
                         </a>
                     </div>
 
                     <div class="text-center p-t-13">
                         <a class="txt2" href="{{ route('register') }}">
-                            Create your Account
+                        Créez votre compte
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>

@@ -3,46 +3,74 @@
 @section('title', 'Forgot Password')
 
 @section('main')
-    <div class="flex justify-center">
-        <h2 class="text-xl font-semibold mb-4">Forgot Password</h2>
-    </div>
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="img/img-01.png" alt="IMG"> <!-- Change this to a relevant image if needed -->
+                </div>
+
+                <form method="POST" action="{{ route('password.email') }}" class="login100-form validate-form">
+                    @csrf
+
+                    <span class="login100-form-title">
+                        Mot de passe oublié
+                    </span>
+
+                    <div class="mb-4 text-sm text-gray-600">
+                        Vous avez oublié votre mot de passe ? Aucun problème. Communiquez-nous simplement votre adresse e-mail et nous vous enverrons par e-mail un lien de réinitialisation de mot de passe qui vous permettra d'en choisir un nouveau.
+                    </div>
+
+                    <!-- Session Status -->
+                    @if (session('status'))
+                        <div class="mb-4 text-sm font-medium text-green-600">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <!-- Validation Errors -->
+                    @if ($errors->any())
+                        <div class="mb-4 text-sm font-medium text-red-600">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Email Address -->
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input id="email" class="input100" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Lien de réinitialisation du mot de passe par e-mail
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Vous vous souvenez de votre mot de passe ?
+                        </span>
+                        <a class="txt2" href="{{ route('login') }}">
+                            Se Connecter
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-13">
+                        <a class="txt2" href="{{ route('register') }}">
+                            Créez votre compte
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <!-- Session Status -->
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <!-- Validation Errors -->
-        @if ($errors->any())
-            <div class="mb-4 text-sm font-medium text-red-600">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
-                <input id="email" class="block mt-1 w-full border border-gray-300 rounded-md p-2" type="email" name="email" value="{{ old('email') }}" required autofocus>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">
-                    {{ __('Email Password Reset Link') }}
-                </button>
-            </div>
-        </form>
     </div>
 @endsection
