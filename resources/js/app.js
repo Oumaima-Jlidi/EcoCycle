@@ -13,5 +13,3 @@ import AOS from 'aos';
 
 // Pour réinitialiser les animations lors de chaque rechargement de la page (si nécessaire)
 window.addEventListener('load', AOS.refresh);
-
-
