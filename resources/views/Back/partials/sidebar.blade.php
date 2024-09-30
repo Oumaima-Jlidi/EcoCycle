@@ -52,6 +52,12 @@
                        <p>Gestion des Produits</p>
                      </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('order.index') ? 'active' : '' }}"> 
+                   <a href="{{ route('order.index') }}">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Gestion des Commandes</p>
+                  </a>
+</li>
 
               
             </ul>
