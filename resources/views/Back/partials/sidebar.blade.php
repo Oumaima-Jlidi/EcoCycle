@@ -53,6 +53,13 @@
                      </a>
                 </li>
 
+                <li class="nav-item {{ request()->routeIs('collectes.index') ? 'active' : '' }}">
+                    <a href="{{ route('collectes.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des collectes</p>
+                    </a>
+                </li>
+
               
             </ul>
 
