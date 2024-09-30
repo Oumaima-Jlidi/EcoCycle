@@ -60,6 +60,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ request()->routeIs('dechets.index') ? 'active' : '' }}">
+                    <a href="{{ route('dechets.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des dechets</p>
+                    </a>
+                </li>
+
               
             </ul>
 
