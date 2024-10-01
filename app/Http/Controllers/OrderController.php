@@ -11,8 +11,28 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Commande::all();
-        return view('Back.pages.commandes.listCommande', compact('orders'));
+        $ordersCount = Commande::count();
+        return view('Back.pages.commandes.listCommande')->with(['orders' => $orders, 'ordersCount' => $ordersCount]);
     }
+
+   public function orderCount(){
+    $ordersCount = Commande::count();  
+    return view('Back.pages.index')->with('ordersCount', $ordersCount);  
+}
+public function dashboard()
+{
+    $ordersCount = Commande::count();  // Count total orders
+    $approvedOrders = Commande::where('statut', 'approuvé')->get();  // Get approved orders
+    $totalSales = $approvedOrders->sum('montant_total');  // Calculate total sales
+
+    // Return the view with all necessary data
+    return view('Back.pages.index', [
+        'ordersCount' => $ordersCount,
+        'totalSales' => $totalSales,
+    ]);
+}
+
+
 
     // Get a single commande by ID
     public function getCommande($id)
@@ -46,7 +66,7 @@ class OrderController extends Controller
     }
 
     // Update an existing commande
-    public function updateCommande(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $commande = Commande::find($id);
         if (!$commande) {
@@ -54,30 +74,36 @@ class OrderController extends Controller
         }
 
         $request->validate([
-            'montant_total' => 'numeric',
+           
             'statut' => 'string',
-            'date_commande' => 'date',
-            'adresse_livraison' => 'string',
+          
         ]);
 
-        $commande->montant_total = $request->montant_total ?? $commande->montant_total;
-        $commande->statut = $request->statut ?? $commande->statut;
-        $commande->date_commande = $request->date_commande ?? $commande->date_commande;
-        $commande->adresse_livraison = $request->adresse_livraison ?? $commande->adresse_livraison;
-        $commande->save();
-
-        return response()->json(['message' => 'Commande updated successfully', 'commande' => $commande]);
-    }
-
-    // Delete a commande
-    public function deleteCommande($id)
-    {
-        $commande = Commande::find($id);
-        if (!$commande) {
-            return response()->json(['message' => 'Commande not found'], 404);
+         $commande->statut = $request->statut ?? $commande->statut;
+         $commande->save();
+         
+ 
+         return redirect()->route('order.index');
+   
+        
         }
 
+    // Delete a commande
+    public function destroy($id)
+    {
+        // Find the commande by ID
+        $commande = Commande::find($id);
+    
+        // Check if the commande exists
+        if (!$commande) {
+            return redirect()->route('order.index')->with('error', 'Commande not found.');
+        }
+    
+        // Delete the commande
         $commande->delete();
-        return response()->json(['message' => 'Commande deleted successfully']);
+    
+        // Retrieve all remaining commandes
+        return redirect()->route('order.index')->with('success', 'Commande deleted successfully.');
     }
+    
 }

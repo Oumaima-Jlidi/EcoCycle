@@ -32,7 +32,7 @@
 
                 <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-users"></i>
                         <p>gestion des users</p>
                     </a>
                 </li>
@@ -40,7 +40,7 @@
 
                 <li class="nav-item {{ request()->routeIs('role.index') ? 'active' : '' }}">
                     <a href="{{ route('role.index') }}">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-user-shield"></i>
                         <p>gestion des roles</p>
                     </a>
                 </li>
@@ -48,31 +48,36 @@
                 
                 <li class="nav-item {{ request()->routeIs('produit.index') ? 'active' : '' }}"> 
                      <a href="{{ route('produit.index') }}">
-                       <i class="fas fa-file-alt"></i>
+                       <i class="fas fa-cubes"></i>
                        <p>Gestion des Produits</p>
                      </a>
                 </li>
                 <li class="nav-item {{ request()->routeIs('order.index') ? 'active' : '' }}"> 
-                   <a href="{{ route('order.index') }}">
-                    <i class="fas fa-file-alt"></i>
-                    <p>Gestion des Commandes</p>
-                  </a>
+  <a href="{{ route('order.index') }}">
+    <i class="fas fa-box"></i>
+    <p>Gestion des Commandes</p>
+  </a>
 </li>
+
 
               
             </ul>
-
-            <!-- Logout Form -->
-            <div class="mt-4">
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <a href="{{ route('logout') }}"
-           onclick="event.preventDefault(); this.closest('form').submit();"
-           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            {{ __('Log Out') }}
-        </a>
-    </form>
+            <div class="d-flex flex-column justify-content-end align-items-center" style="height:60vh;">
+    <div class="mb-4">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button
+                type="submit"
+                class="btn btn-danger"
+                style="padding: 10px 20px; border-radius: 5px;"
+            >
+                {{ __('Log Out') }}
+            </button>
+        </form>
+    </div>
 </div>
+
+
 
             <!-- End Logout Form -->
         </div>
