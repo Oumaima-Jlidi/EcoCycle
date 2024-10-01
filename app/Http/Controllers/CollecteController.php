@@ -23,7 +23,7 @@ class CollecteController extends Controller
     {
         // Validation
         $request->validate([
-            'type_dechet' => 'required',
+            'nom_collecte' => 'required',
             'zone_collecte' => 'required|regex:/^[\pL\s]+$/u',
             'statut' => 'required',
             'date_collecte' => 'required|date',
@@ -46,7 +46,7 @@ class CollecteController extends Controller
     {
         // Validation
         $request->validate([
-            'type_dechet' => 'required',
+            'nom_collecte' => 'required',
             'zone_collecte' => 'required|regex:/^[\pL\s]+$/u',
             'statut' => 'required',
             'date_collecte' => 'required|date',

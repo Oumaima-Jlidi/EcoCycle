@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('collectes', function (Blueprint $table) {
             $table->float('quantite_collecte')->after('id'); 
-            $table->string('type_dechet'); 
+            $table->string('nom_collecte'); 
             $table->string('zone_collecte'); 
             $table->string('statut'); 
             $table->date('date_collecte'); 
@@ -34,7 +34,7 @@ return new class extends Migration
     {
         Schema::table('collectes', function (Blueprint $table) {
             $table->dropColumn('quantite_collecte');  
-            $table->dropColumn('type_dechet'); 
+            $table->dropColumn('nom_collecte'); 
             $table->dropColumn('zone_collecte'); 
             $table->dropColumn('statut'); 
             $table->dropColumn('date_collecte'); 

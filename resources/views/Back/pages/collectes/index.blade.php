@@ -54,12 +54,12 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="form-group form-group-default">
-                            <label>Type de Déchet</label>
+                            <label>Nom collecte</label>
                             <input
                               type="text"
-                              name="type_dechet"
+                              name="nom_collecte"
                               class="form-control"
-                              placeholder="Type de Déchet"
+                              placeholder="Nom collecte"
                               required
                             />
                           </div>
@@ -167,13 +167,13 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="form-group form-group-default">
-                            <label>Type de Déchet</label>
+                            <label>Nom collecte</label>
                             <input
                               id="editTypeDechet"
                               type="text"
-                              name="type_dechet"
+                              name="nom_collecte"
                               class="form-control"
-                              placeholder="Type de Déchet"
+                              placeholder="Nom collecte"
                               required
                             />
                           </div>
@@ -258,7 +258,7 @@
               >
                 <thead>
                   <tr>
-                    <th>Type de Déchet</th>
+                    <th>Nom collecte</th>
                     <th>Zone de Collecte</th>
                     <th>Statut</th>
                     <th>Date de Collecte</th>
@@ -268,7 +268,7 @@
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Type de Déchet</th>
+                    <th>Nom collecte</th>
                     <th>Zone de Collecte</th>
                     <th>Statut</th>
                     <th>Date de Collecte</th>
@@ -279,7 +279,7 @@
                 <tbody>
                   @foreach($collectes as $collecte)
                     <tr>
-                      <td>{{ $collecte->type_dechet }}</td>
+                      <td>{{ $collecte->nom_collecte }}</td>
                       <td>{{ $collecte->zone_collecte }}</td>
                       <td>{{ $collecte->statut }}</td>
                       <td>{{ $collecte->date_collecte }}</td>
@@ -291,7 +291,7 @@
                             title="Modifier la Collecte"
                             data-bs-toggle="modal"
                             data-bs-target="#editRowModal"
-                            onclick="setEditCollecteData('{{ $collecte->id }}', '{{ $collecte->type_dechet }}', '{{ $collecte->zone_collecte }}', '{{ $collecte->statut }}', '{{ $collecte->date_collecte }}', '{{ $collecte->quantite_collecte }}')"
+                            onclick="setEditCollecteData('{{ $collecte->id }}', '{{ $collecte->nom_collecte }}', '{{ $collecte->zone_collecte }}', '{{ $collecte->statut }}', '{{ $collecte->date_collecte }}', '{{ $collecte->quantite_collecte }}')"
                           >
                             <i class="fa fa-edit"></i>
                           </button>

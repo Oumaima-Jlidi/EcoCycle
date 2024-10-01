@@ -11,7 +11,7 @@ class Collecte extends Model
     protected $table = 'collectes';
     protected $primarykey = 'id';
     protected $fillable = [
-        'type_dechet',     // Type de déchet collecté
+        'nom_collecte',     // Type de déchet collecté
         'zone_collecte',   // Zone de collecte
         'statut',          // Statut de la collecte
         'date_collecte',   // Date de la collecte
