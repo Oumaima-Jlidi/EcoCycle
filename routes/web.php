@@ -20,7 +20,7 @@ use App\Http\Controllers\OrderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+ Route::get('/testFront', [OrderController::class, 'test'])->name('order.test');
 
 Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
 
@@ -37,6 +37,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
+
 });
 
 

@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-  
+    
+  public function test(){
+    return view('Front.pages.shop.shop-detail');
+  }
+
+
+
     public function index()
     {
         $orders = Commande::all();
