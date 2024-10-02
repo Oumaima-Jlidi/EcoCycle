@@ -17,7 +17,7 @@ class ProduitController extends Controller
     public function index()
     {
         $produits = Produit::all();
-        return view ('Back.pages.produits.test')->with('produits',$produits);
+        return view('Back.pages.produits.test')->with('produits', $produits);
 
         //return view('Back.pages.test', compact('produits'));
     }
@@ -27,9 +27,7 @@ class ProduitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-           }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +37,7 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        $data =$request->validate([
+        $data = $request->validate([
             'nom' => 'required|string|max:255',
             'quantite' => 'required|string',
             'prix' => 'required|string',
@@ -53,7 +51,6 @@ class ProduitController extends Controller
         Produit::create($data);
 
         return redirect()->route('produit.index')->with('success', 'Produit ajouté avec succès');
- 
     }
 
     /**
@@ -74,7 +71,7 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-         // Afficher le formulaire d'édition d'un produit
+    // Afficher le formulaire d'édition d'un produit
 
     public function edit($id)
     {
@@ -104,7 +101,6 @@ class ProduitController extends Controller
         $produit->update($request->all());
 
         return redirect()->route('produit.index')->with('success', 'Produit mis à jour avec succès');
-  
     }
 
     /**
