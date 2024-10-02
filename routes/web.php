@@ -28,9 +28,11 @@ Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 
+
 Route::get('/', function () {
     return view('TemplateForum.dashPosts');
 });
+
  
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');

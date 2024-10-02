@@ -1,6 +1,4 @@
 
- 
- <!-- Navbar start -->
   <div class="container-fluid fixed-top">
             <div class="container topbar bg-primary d-none d-lg-block">
                 <div class="d-flex justify-content-between">
@@ -25,7 +23,9 @@
                         <div class="navbar-nav mx-auto">
                             <a href="index.html" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
+
                             <a href="{{ route('forum.index') }}" class="nav-item nav-link">Forum</a>
+
 
                         </div>
                         <div class="d-flex m-3 me-0">
