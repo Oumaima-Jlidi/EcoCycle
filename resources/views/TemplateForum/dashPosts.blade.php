@@ -18,14 +18,15 @@
 
 <body>
 
-
-
-<div class="switcher switcher-show" id="theme-switcher">
+<div class="switcher switcher-show" id="theme-switcher" style="
+    margin-bottom: 55px; margin-right: -8px;">
         <i id="switcher-icon" class="bi bi-moon"></i>
     </div>
+@extends('Front.frontIndex')
+@section('frontSection')
+
 
     <!-- Back to Top -->
-	<a href="#" id="back-to-top"></a>  
 
 	<div class="vine-wrapper">
 
@@ -33,12 +34,10 @@
 	
 
 
-		<!-- ==============================================
-		 Dashboard
-		=============================================== -->
+		
         <section class="dashboard">
-            <div class="container">
-                <div class="row">
+        <div class="container" style=" padding-top: 64px;">
+        <div class="row">
 
                     <div class="col-sm-12 col-lg-3 mb-5">
 
@@ -57,7 +56,7 @@
 
                                 <span class="fs-sm text-muted">1 hours ago</span>
                               </div>
-                              <h5 ><a href="#" style="color: #08beab;">Do you think BARD will overtake ChatGPT?</a></h5>
+                              <h5 ><a href="#" style="color: #81c408 ;">Do you think BARD will overtake ChatGPT?</a></h5>
                               <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et facilis, soluta vitae porro, praesentium deserunt explicabo optio laborum. 
                                 Quidem consequuntur modi atque, placeat repellat, perferendis aperiam, fugiat harum ullam aspernatur dicta doloribus qui quo corrupti natus reprehenderit...</p>
                            
@@ -88,14 +87,14 @@
                         </div><!--/card-->  
                        
 
-                        <div class="pagination-2" data-aos="fade-up" data-aos-easing="linear" style="color: #08beab;">
+                        <div class="pagination-2" data-aos="fade-up" data-aos-easing="linear" style="color: #81c408 ;">
                                 <ul>
-                                    <li><a href="#" style="color: #08beab;"><i class="bi bi-arrow-left"></i></a></li>
-                                    <li><a href="#" style="color: #08beab;">1</a></li>
+                                    <li><a href="#" style="color: #81c408 ;"><i class="bi bi-arrow-left"></i></a></li>
+                                    <li><a href="#" style="color: #81c408 ;">1</a></li>
                                     <li><span class="current">2</span></li>
-                                    <li><a href="#" style="color: #08beab;">3</a></li>
-                                    <li><a href="#" style="color: #08beab;">4</a></li>
-                                    <li><a href="#" style="color: #08beab;"><i class="bi bi-arrow-right"></i></a></li>
+                                    <li><a href="#" style="color: #81c408 ;">3</a></li>
+                                    <li><a href="#" style="color: #81c408 ;">4</a></li>
+                                    <li><a href="#" style="color: #81c408 ;"><i class="bi bi-arrow-right"></i></a></li>
                                 </ul>
                         </div>
 
@@ -106,7 +105,6 @@
         </section>
 
 		
-        @extends('TemplateForum.Layouts.Footer')
 
 
     </div>

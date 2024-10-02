@@ -11,7 +11,11 @@ class PostController extends Controller
         return view('TemplateForum/dashPosts'); 
     }
 
+    public function Forum()
+    {
+        return view('Front/pages/ForumFront/listeSujet'); 
 
+    }
 
     public function AddPost()
     {
