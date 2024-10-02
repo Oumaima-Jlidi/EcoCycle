@@ -27,7 +27,7 @@ Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index'
 
 
 Route::get('/', function () {
-    return view('Front.welcome');
+    return view('TemplateForum.dashPosts');
 });
 
 Route::middleware(['auth','admin'])->group(function () {
