@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     
   public function test(){
-    return view('Front.pages.shop.shop-detail');
+    return view('Front.pages.404');
   }
 
 
