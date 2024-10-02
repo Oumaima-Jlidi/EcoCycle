@@ -17,29 +17,31 @@
 </head>
 
 <body>
-    <div class="switcher switcher-show" id="theme-switcher">
+<div class="switcher switcher-show" id="theme-switcher" style="
+    margin-bottom: 55px; margin-right: -8px;">
         <i id="switcher-icon" class="bi bi-moon"></i>
     </div>
+@extends('Front.frontIndex')
+@section('frontSection')
+   
 
     <!-- Back to Top -->
-    <a href="#" id="back-to-top"></a>
 
     <div class="vine-wrapper">
 
 
         <section class="dashboard">
-            <div class="container">
+            <div class="container" style=" padding-top: 64px;">
                 <div class="row">
-                <div class="col-sm-12 col-lg-3 mb-5">
-                  @include('TemplateForum.Layouts.Menu')
+                <div class="col-sm-6 col-lg-3 mb-5">
 
                   </div>
-                    <div class="col-12 col-lg-9">
+                   
 
-                        <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear"><i class="bi bi-plus-circle-dotted me-2"></i> Add Post</h4>
+                        <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear" style="margin-left: 45px;"><i class="bi bi-plus-circle-dotted me-2"></i> Add Subject</h4>
 
                         <div class="row g-0">
-                            <div class="col-12">
+                            <div class="col-11" style="margin-left: 45px;">
                                 <div class="dashboard-card">
                                     <div class="dashboard-body">
 
@@ -53,7 +55,7 @@
                                                 <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                     <div class="upload-image my-3">
                                                         <p class="mb-2">PNG, JPG, GIF, WEBP or MP4. Max 200mb.</p>
-                                                        <input type="button" class="btn btn-mint btn-md rounded-pill w-25"  style="background-color: #08beab;"value="Browse">
+                                                        <input type="button" class="btn btn-mint btn-md rounded-pill w-25"  style="background-color: #81c408;"value="Browse">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
@@ -123,7 +125,7 @@
 
                                             </div>
                                             <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
-                                                <button class="btn btn me-3" style="background-color: #08beab;">Submit</button>
+                                                <button class="btn btn me-3" style="background-color: #81c408;">Submit</button>
                                                 <button class="btn btn-secondary">Save as Draft</button>
                                             </div>
                                         </form>
@@ -135,13 +137,12 @@
 
                     </div>
 
-                </div>
+               
             </div>
         </section>
-        @extends('TemplateForum.Layouts.Footer')
 
     </div>
-
+@endsection
 </body>
 
 </html>

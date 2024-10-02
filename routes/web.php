@@ -23,10 +23,15 @@ use App\Http\Controllers\NotFoundController;
 
 
 Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
+Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
 
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 
+
+Route::get('/', function () {
+    return view('TemplateForum.dashPosts');
+});
 
  
 Route::middleware(['auth', 'admin'])->group(function () {
