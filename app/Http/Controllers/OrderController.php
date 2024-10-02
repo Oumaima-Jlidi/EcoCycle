@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     
-  public function test(){
-    return view('Front.pages.404');
-  }
-
 
 
     public function index()
