@@ -8,8 +8,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\NotFoundController;
-
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,12 +29,26 @@ Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 
 
-Route::get('/', function () {
-    return view('TemplateForum.dashPosts');
+
+Route::get('/home', function () {
+    return view('Front.frontIndex');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('TemplateForum.dashPosts');
+    });
+    Route::fallback([NotFoundController::class, 'index']);
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+     // Routes pour changer le mot de passe
+     Route::get('/change-password', [PasswordController::class, 'changePassword'])->name('password.change');
+     Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
  
+});
 Route::middleware(['auth', 'admin'])->group(function () {
+   
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
 
@@ -43,6 +57,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
     Route::fallback([NotFoundController::class, 'index']);
+    Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 
 });
 

@@ -26,8 +26,8 @@
 
                     <!-- Validation Errors -->
                     @if ($errors->any())
-                        <div class="mb-4 text-sm font-medium text-red-600">
-                            <ul>
+                    <div class="alert alert-danger">                            
+                        <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach

@@ -38,6 +38,13 @@
             <td>
                 <div style="display: flex; align-items: center;">
                     @if ($user->role && $user->role->roleName !== 'admin')
+                    <form action="{{ route('users.toggleStatus', $user->id) }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit" class="btn btn-link {{ $user->is_active ? 'btn-danger' : 'btn-success' }}" title="{{ $user->is_active ? 'Désactiver' : 'Activer' }}">
+                <i class="fa {{ $user->is_active ? 'fa-toggle-off' : 'fa-toggle-on' }}"></i>
+                {{ $user->is_active ? 'Désactiver' : 'Activer' }}
+            </button>
+        </form>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

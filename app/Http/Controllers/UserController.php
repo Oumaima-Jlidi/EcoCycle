@@ -105,4 +105,14 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User supprimé avec succès');
     }
+
+    public function toggleStatus($id)
+{
+    $user = User::findOrFail($id);
+    $user->is_active = !$user->is_active; // Inverser l'état
+    $user->save();
+
+    return redirect()->route('users.index')->with('success', 'Statut de l\'utilisateur mis à jour avec succès');
+}
+
 }

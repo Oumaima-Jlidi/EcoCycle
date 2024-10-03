@@ -34,9 +34,26 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            </li>
+                        <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="my-auto">
+    <i class="fas fa-user fa-2x"></i>
+</a>
+                            @guest
+        <a href="{{ route('login') }}"
+           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            {{ __('Log In') }}
+        </a>
+    @else
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}"
+               onclick="event.preventDefault(); this.closest('form').submit();"
+               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                {{ __('Log Out') }}
+            </a>
+        </form>
+    @endguest
+
                         </div>
                     </div>
                 </nav>
