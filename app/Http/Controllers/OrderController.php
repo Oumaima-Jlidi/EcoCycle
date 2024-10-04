@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use Illuminate\Http\Request;
+use App\Models\User; 
+
 
 class OrderController extends Controller
 {
@@ -26,11 +28,12 @@ public function dashboard()
     $ordersCount = Commande::count();   
     $approvedOrders = Commande::where('statut', 'approuvé')->get();  
     $totalSales = $approvedOrders->sum('montant_total');   
-
+    $usersCount = User::count();
     
     return view('Back.pages.index', [
         'ordersCount' => $ordersCount,
         'totalSales' => $totalSales,
+        'usersCount' => $usersCount,
     ]);
 }
 

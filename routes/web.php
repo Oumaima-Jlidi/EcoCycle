@@ -50,6 +50,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
    
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
+    Route::get('/users/export/pdf', [UserController::class, 'exportToPDF'])->name('users.export.pdf');
 
     Route::resource('/produit', ProduitController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
