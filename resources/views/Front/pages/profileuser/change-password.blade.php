@@ -42,35 +42,42 @@
 
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('password.update') }}">
-                            @csrf
+                    <form method="POST" action="{{ route('password.update') }}">
+    @csrf
+    <!-- Retirer @method('POST') -->
 
-                            <div class="mb-3">
-                                <label for="current_password" class="form-label">Mot de passe actuel</label>
-                                <input type="password" class="form-control" id="current_password" name="current_password" required>
-                                @error('current_password')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+    <div class="mb-3">
+        <label for="current_password" class="form-label">Mot de passe actuel</label>
+        <input type="password" class="form-control" id="current_password" name="current_password" required>
+        @error('current_password')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 
-                            <div class="mb-3">
-                                <label for="new_password" class="form-label">Nouveau mot de passe</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password" required>
-                                @error('new_password')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+    <div class="mb-3">
+        <label for="new_password" class="form-label">Nouveau mot de passe</label>
+        <input type="password" class="form-control" id="new_password" name="new_password" required>
+        @error('new_password')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 
-                            <div class="mb-3">
-                                <label for="new_password_confirmation" class="form-label">Confirmer le nouveau mot de passe</label>
-                                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
-                                @error('new_password_confirmation')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+    <div class="mb-3">
+        <label for="new_password_confirmation" class="form-label">Confirmer le nouveau mot de passe</label>
+        <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
+        @error('new_password_confirmation')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </div>
 
-                            <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
-                        </form>
+    <div class="d-flex justify-content-end gap-2">
+        <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
+        <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="btn btn-secondary">
+            Retour au profil
+        </a>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>

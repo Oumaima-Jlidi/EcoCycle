@@ -48,7 +48,11 @@
                                 <small class="form-text text-muted">Laissez vide si vous ne voulez pas changer l'image.</small>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                <a href="{{ route('profile.show', $user->id) }}" class="btn btn-secondary">Retour au profil</a>
+                            </div>
+
                         </form>
                     </div>
                 </div>

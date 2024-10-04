@@ -31,7 +31,7 @@ Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index'
 
 
 Route::get('/home', function () {
-    return view('Front.frontIndex');
+    return view('Front.welcome');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -42,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-     // Routes pour changer le mot de passe
      Route::get('/change-password', [PasswordController::class, 'changePassword'])->name('password.change');
      Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
  
