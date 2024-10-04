@@ -17,12 +17,15 @@ class OrderController extends Controller
         return view('Back.pages.commandes.listCommande')->with(['orders' => $orders, 'ordersCount' => $ordersCount]);
     }
 
-   public function orderCount(){
+   public function orderCount()
+   {
     $ordersCount = Commande::count();  
     return view('Back.pages.index')->with('ordersCount', $ordersCount);  
-}
-public function dashboard()
-{
+   }
+
+
+   public function dashboard()
+   {
     $ordersCount = Commande::count();   
     $approvedOrders = Commande::where('statut', 'approuvé')->get();  
     $totalSales = $approvedOrders->sum('montant_total');   
@@ -32,8 +35,7 @@ public function dashboard()
         'ordersCount' => $ordersCount,
         'totalSales' => $totalSales,
     ]);
-}
-
+   }
 
  
     public function getCommande($id)

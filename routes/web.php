@@ -23,7 +23,6 @@ use App\Http\Controllers\NotFoundController;
 
 
 Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
-
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 
@@ -32,7 +31,6 @@ Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index'
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
-
     Route::resource('/produit', ProduitController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
