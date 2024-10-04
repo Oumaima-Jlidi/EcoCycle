@@ -10,7 +10,7 @@ class Produit extends Model
     use HasFactory;
     protected $table = 'produits';
     protected $primarykey = 'id';
-    protected $fillable = ['nom', 'description', 'prix', 'quantite', 'user_id'];
+    protected $fillable = ['nom', 'description', 'prix', 'quantite', 'image', 'user_id'];
 
     public function user()
     {

@@ -21,6 +21,13 @@ class ProduitController extends Controller
 
         //return view('Back.pages.test', compact('produits'));
     }
+    public function indexFront()
+    {
+        $produits = Produit::all();
+        return view('Front.pages.shop.shop')->with('produits', $produits);
+
+        //return view('Back.pages.test', compact('produits'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -37,19 +44,34 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
+        // Valider les données du formulaire
         $data = $request->validate([
             'nom' => 'required|string|max:255',
             'quantite' => 'required|string',
             'prix' => 'required|string',
             'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour l'image
         ]);
 
         // Assigne l'ID de l'utilisateur connecté
         $data['user_id'] = Auth::id();
 
+        // Gestion de l'image (si présente)
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('images'), $filename);
+            $data['image'] = 'images/' . $filename; // Store relative path for database
+
+        }
+
         // Créer un nouveau produit
         Produit::create($data);
 
+        // Rediriger avec un message de succès
         return redirect()->route('produit.index')->with('success', 'Produit ajouté avec succès');
     }
 
@@ -61,7 +83,11 @@ class ProduitController extends Controller
      */
     public function show($id)
     {
-        //
+        // Retrieve the product by its ID
+        $produit = Produit::findOrFail($id);
+
+        // Return a view with the product details
+        return view('Front.pages.shop.shop-detail', compact('produit'));
     }
 
     /**
@@ -88,18 +114,43 @@ class ProduitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Valider la requête
-        $request->validate([
-            'nom' => 'required',
-            'quantite' => 'required',
-            'prix' => 'required|numeric',
-            'description' => 'required',
+        // Valider les données du formulaire
+        $data = $request->validate([
+            'nom' => 'required|string|max:255',
+            'quantite' => 'required|string',
+            'prix' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour l'image
         ]);
 
-        // Trouver le produit et le mettre à jour
+        // Trouver le produit par son ID
         $produit = Produit::findOrFail($id);
-        $produit->update($request->all());
 
+        // Gestion de l'image (si une nouvelle image est présente)
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($produit->image) {
+                $oldImagePath = public_path($produit->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath); // Supprimer l'ancienne image
+                }
+            }
+
+            // Traitement de la nouvelle image
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('images'), $filename);
+            $data['image'] = 'images/' . $filename; // Store relative path for database
+        } else {
+            // Si aucune nouvelle image n'est fournie, conserver l'ancienne
+            $data['image'] = $produit->image;
+        }
+
+        // Mettre à jour le produit
+        $produit->update($data);
+
+        // Rediriger avec un message de succès
         return redirect()->route('produit.index')->with('success', 'Produit mis à jour avec succès');
     }
 

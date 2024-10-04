@@ -79,74 +79,49 @@
                   <p class="small">
                     Créer un nouveau Produit
                   </p>
-                  <form action="{{ route('produit.store') }}" method="POST">
+                  <form action="{{ route('produit.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
                           <label>Nom</label>
-                          <input
-                            id="addName"
-                            type="text"
-                            name="nom"
-                            class="form-control"
-                            placeholder="nom du produit"
-                            requied />
+                          <input id="addName" type="text" name="nom" class="form-control" placeholder="nom du produit" required />
                         </div>
                       </div>
 
                       <div class="col-md-6 pe-0">
                         <div class="form-group form-group-default">
-                          <label>quantité</label>
-                          <input
-                            id="addMarque"
-                            type="text"
-                            name="quantite"
-                            class="form-control"
-                            placeholder="marque produit"
-                            required />
+                          <label>Quantité</label>
+                          <input id="addMarque" type="text" name="quantite" class="form-control" placeholder="Quantité produit" required />
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group form-group-default">
                           <label>Prix</label>
-                          <input
-                            id="addPrix"
-                            type="text"
-                            name="prix"
-                            class="form-control"
-                            placeholder="Prix Produit"
-                            required />
+                          <input id="addPrix" type="text" name="prix" class="form-control" placeholder="Prix Produit" required />
                         </div>
                       </div>
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
                           <label>Description</label>
-                          <input
-                            id="addDescription"
-                            type="text"
-                            name="description"
-                            class="form-control"
-                            placeholder="Description Produit"
-                            required />
+                          <input id="addDescription" type="text" name="description" class="form-control" placeholder="Description Produit" required />
+                        </div>
+                      </div>
+
+                      <!-- Nouveau champ pour l'image -->
+                      <div class="col-sm-12">
+                        <div class="form-group form-group-default">
+                          <label>Image du produit</label>
+                          <input type="file" name="image" class="form-control" />
                         </div>
                       </div>
                     </div>
                     <div class="modal-footer border-0">
-                      <button
-                        type="submit"
-                        id="addRowButton"
-                        class="btn btn-primary">
-                        Ajouter
-                      </button>
-                      <button
-                        type="cancel"
-                        class="btn btn-danger"
-                        data-dismiss="modal">
-                        Annuler
-                      </button>
+                      <button type="submit" id="addRowButton" class="btn btn-primary">Ajouter</button>
+                      <button type="cancel" class="btn btn-danger" data-dismiss="modal">Annuler</button>
                     </div>
                   </form>
+
                 </div>
 
               </div>
@@ -160,7 +135,6 @@
             tabindex="-1"
             role="dialog"
             aria-hidden="true">
-            >
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header border-0">
@@ -177,10 +151,8 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p class="small">
-                    Modifier le produit sélectionné
-                  </p>
-                  <form id="editProduitForm" action="" method="POST">
+                  <p class="small">Modifier le produit sélectionné</p>
+                  <form id="editProduitForm" action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -210,7 +182,7 @@
                       </div>
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
-                          <label>quantite</label>
+                          <label>Quantité</label>
                           <input
                             id="editQuantite"
                             type="text"
@@ -232,6 +204,17 @@
                             required />
                         </div>
                       </div>
+                      <div class="col-sm-12">
+                        <div class="form-group form-group-default">
+                          <label>Image (facultatif)</label>
+                          <input
+                            id="editImage"
+                            type="file"
+                            name="image"
+                            class="form-control" />
+                          <small class="form-text text-muted">Formats acceptés: jpeg, png, jpg, gif.</small>
+                        </div>
+                      </div>
                     </div>
                     <div class="modal-footer border-0">
                       <button
@@ -251,6 +234,7 @@
               </div>
             </div>
           </div>
+
           <div class="table-responsive">
             <table
               id="add-row"
