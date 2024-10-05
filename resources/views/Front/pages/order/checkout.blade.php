@@ -6,7 +6,7 @@
     <div class="container py-5">
         <h1 class="mb-4">Checkout</h1>
         <form action="{{ route('order.store') }}" method="POST">
-            @csrf <!-- Add CSRF token for security -->
+            @csrf  
             <div class="row g-5">
                 <div class="col-md-12 col-lg-6">
                     <div class="form-item">
@@ -31,7 +31,7 @@
                                     $cartTotal = 0; // Initialize total for the cart
                                 @endphp
 
-                                @foreach(session('cart', []) as $id => $item) <!-- Loop through cart items -->
+                                @foreach(session('cart', []) as $id => $item)  
                                     <tr>
                                         <td>
                                             <img src="{{ isset($item['image']) ? asset($item['image']) : asset('img/default-image.jpg') }}" class="img-fluid rounded-circle" style="width: 80px; height: 80px;" alt="{{ isset($item['name']) ? $item['name'] : 'Product' }}">
@@ -49,11 +49,11 @@
 
                                 <tr>
                                     <td colspan="1" class="text-end"><strong>Subtotal</strong></td>
-                                    <td>{{ number_format($cartTotal, 2) }} DT</td> <!-- Subtotal display -->
+                                    <td>{{ number_format($cartTotal, 2) }} DT</td>  
                                 </tr>
                                 <tr>
                                     <td colspan="1" class="text-end"><strong>TOTAL</strong></td>
-                                    <td>{{ number_format($cartTotal, 2) }} DT</td> <!-- Total display -->
+                                    <td>{{ number_format($cartTotal, 2) }} DT</td>  
                                 </tr>
                             </tbody>
                         </table>
