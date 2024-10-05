@@ -7,6 +7,8 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\NotFoundController;
 
 
@@ -28,8 +30,13 @@ Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
 Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
+Route::post('/add-to-cart', [OrderController::class,'addToCart'])->name('add.to.cart');
 
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity']);
 
+// Route to remove an item from the cart
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/', function () {
     return view('TemplateForum.dashPosts');
 });

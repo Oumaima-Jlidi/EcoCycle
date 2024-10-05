@@ -24,8 +24,7 @@
                             <a href="index.html" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
 
-                            <a href="{{ route('forum.index') }}" class="nav-item nav-link">Forum</a>
-
+                           
 
                         </div>
                         <div class="d-flex m-3 me-0">

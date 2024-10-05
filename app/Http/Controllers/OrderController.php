@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -104,5 +105,44 @@ class OrderController extends Controller
     
          return redirect()->route('order.index')->with('success', 'Commande deleted successfully.');
     }
+    
+
+
+    public function addToCart(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:produits,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        $product = Produit::find($request->product_id);
+        $cart = session()->get('cart', []);
+     
+        if (isset($cart[$product->id])) {
+            $cart[$product->id]['quantite'] += $request->quantity;
+            $cart[$product->id]['total_price'] = $cart[$product->id]['quantite'] * $product->prix;
+        } else {
+            $cart[$product->id] = [
+                "id" => $product->id, 
+                "name" => $product->nom,
+                "quantite" => $request->quantite,
+                "prix" => $product->prix,
+                "total_price" => $product->prix * $request->quantite,
+                "image" => $product->image, 
+            ];
+        }
+        
+    
+        // Save the updated cart back into the session
+        session()->put('cart', $cart);
+    
+        return response()->json([
+            'message' => 'Product added to cart successfully', 
+            'cart' => $cart,
+            'redirect' => false  // Set this to true if you want to redirect to the cart
+        ]);
+    }
+    
+    
     
 }

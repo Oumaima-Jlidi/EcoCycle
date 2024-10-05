@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->float('montant_total'); // Montant total de la commande
-            $table->string('statut')->default('en cours'); // Statut de la commande
-            $table->timestamp('date_commande'); // Date de la commande
-            $table->string('adresse_livraison'); // Adresse de livraison
+            $table->float('montant_total');  
+            $table->string('statut')->default('en cours');  
+            $table->timestamp('date_commande');  
+            $table->string('adresse_livraison');  
+            $table->json('produits');  
             $table->timestamps();
         });
     }
