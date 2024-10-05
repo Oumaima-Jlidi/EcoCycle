@@ -154,14 +154,14 @@ class OrderController extends Controller
             return redirect()->route('cart.show')->with('error', 'Your cart is empty. Please add items to your cart before proceeding to checkout.');
         }
     
-        // Initialize subtotal
+        
         $subtotal = 0;
     
-        // Create an array to store only product IDs
+       
         $productIds = [];
         foreach ($cart as $item) {
-            $subtotal += $item['total_price'] ?? 0; // Calculate subtotal
-            $productIds[] = $item['id']; // Collect product IDs
+            $subtotal += $item['total_price'] ?? 0;  
+            $productIds[] = $item['id'];  
         }
     
         $orderData = [
@@ -169,7 +169,7 @@ class OrderController extends Controller
             'statut' => 'en cours',  
             'date_commande' => now(), 
             'adresse_livraison' => $validatedData['adresse_livraison'],  
-            'produits' => json_encode($productIds),  // Save only product IDs
+            'produits' => json_encode($productIds),   
             'user_id' => auth()->id(),  
         ];
     
