@@ -38,7 +38,7 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
     
         if (isset($cart[$id])) {
-            // Use the correct key
+            
             $cart[$id]['quantite'] = $request->quantity;  
             $cart[$id]['total_price'] = $cart[$id]['quantite'] * $cart[$id]['prix'];  
     
@@ -53,21 +53,20 @@ class CartController extends Controller
     
     public function checkout()
     {
-        // Get the cart items from the session
+       
         $cart = session('cart', []);
         
-        // If the cart is empty, redirect to the cart page with an error message
+       
         if (empty($cart)) {
             return redirect()->route('cart.show')->with('error', 'Your cart is empty. Please add items to your cart before proceeding to checkout.');
         }
     
-        // Calculate the total amount for the cart
+     
         $subtotal = 0;
         foreach ($cart as $item) {
-            $subtotal += $item['total_price'] ?? 0; // Accumulate the total price of each item
+            $subtotal += $item['total_price'] ?? 0;  
         }
-    
-        // Optionally, you can pass any additional data needed for the checkout view
+     
         return view('Front.pages.order.checkout', compact('cart', 'subtotal'));
     }
     
