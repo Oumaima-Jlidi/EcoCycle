@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\NotFoundController;
 
@@ -34,14 +35,15 @@ Route::post('/add-to-cart', [OrderController::class,'addToCart'])->name('add.to.
 
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity']);
+Route::get('/cartLength', [CartController::class, 'index']);
+
 
 // Route to remove an item from the cart
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/', function () {
     return view('TemplateForum.dashPosts');
 });
-
-
+ 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
@@ -49,6 +51,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
+    
     Route::fallback([NotFoundController::class, 'index']);
 });
 

@@ -40,7 +40,7 @@
 
       
    <!-- Navbar Header -->
-   @include('Front.partials.header')
+   @include('Front.partials.header' ) <!-- Use null coalescing operator to avoid undefined variable error -->
    <!-- End Navbar -->
 
         <!-- Modal Search Start -->
