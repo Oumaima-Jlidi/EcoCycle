@@ -23,11 +23,18 @@ use App\Http\Controllers\NotFoundController;
 
 
 Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
+
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
+Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
+Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
- 
+Route::get('/', function () {
+    return view('TemplateForum.dashPosts');
+});
+
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
@@ -36,8 +43,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
     Route::fallback([NotFoundController::class, 'index']);
-
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
