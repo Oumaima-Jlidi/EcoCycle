@@ -35,28 +35,26 @@ class CartController extends Controller
     }
     public function updateQuantity(Request $request, $id)
     {
-     
         $request->validate([
             'quantity' => 'required|integer|min:1',  
         ]);
     
-       
         $cart = session()->get('cart', []);
     
-     
         if (isset($cart[$id])) {
-         
-            $cart[$id]['quantity'] = $request->quantity;  
-            $cart[$id]['total_price'] = $cart[$id]['quantity'] * $cart[$id]['prix'];  
-     
+            // Use the correct key
+            $cart[$id]['quantite'] = $request->quantity;  
+            $cart[$id]['total_price'] = $cart[$id]['quantite'] * $cart[$id]['prix'];  
+    
             session()->put('cart', $cart);
         }
-     
+    
         return response()->json([
             'message' => 'Quantity updated successfully',
             'cart' => $cart,
         ]);
     }
+    
     
     
 }

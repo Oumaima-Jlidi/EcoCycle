@@ -117,32 +117,31 @@ class OrderController extends Controller
     
         $product = Produit::find($request->product_id);
         $cart = session()->get('cart', []);
-     
+    
         if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantite'] += $request->quantity;
-            $cart[$product->id]['total_price'] = $cart[$product->id]['quantite'] * $product->prix;
+            // If the product is already in the cart, update the quantity and total price
+            $cart[$product->id]['quantity'] += $request->quantity; // Change 'quantite' to 'quantity'
+            $cart[$product->id]['total_price'] = $cart[$product->id]['quantity'] * $product->prix;
         } else {
+            // If the product is not in the cart, add it
             $cart[$product->id] = [
                 "id" => $product->id, 
                 "name" => $product->nom,
-                "quantite" => $request->quantite,
+                "quantity" => $request->quantity, // Change 'quantite' to 'quantity'
                 "prix" => $product->prix,
-                "total_price" => $product->prix * $request->quantite,
+                "total_price" => $product->prix * $request->quantity, // Change 'quantite' to 'quantity'
                 "image" => $product->image, 
             ];
         }
-        
     
-        // Save the updated cart back into the session
         session()->put('cart', $cart);
     
         return response()->json([
             'message' => 'Product added to cart successfully', 
             'cart' => $cart,
-            'redirect' => false  // Set this to true if you want to redirect to the cart
+            'redirect' => false   
         ]);
     }
-    
     
     
 }

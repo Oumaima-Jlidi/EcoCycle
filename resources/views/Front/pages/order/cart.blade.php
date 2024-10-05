@@ -27,9 +27,10 @@
                             <p class="mb-0">{{ isset($item['name']) ? $item['name'] : 'Unknown' }}</p>
                         </td>
                         <td>
-                            <p class="mb-0">{{ isset($item['prix']) ? number_format($item['prix'], 2) : 'N/A' }} $</p>
+                            <p class="mb-0">{{ isset($item['prix']) ? number_format($item['prix'], 2) : 'N/A' }} DT</p>
                         </td>
                      <td>
+                     
     <div class="input-group quantity" style="width: 100px;">
         <div class="input-group-btn">
             <button class="btn btn-sm btn-outline-secondary rounded-circle" type="button" onclick="updateQuantity('{{ $id }}', {{ isset($item['quantite']) ? $item['quantite'] - 1 : 0 }})">
@@ -44,12 +45,14 @@
         </div>
     </div>
 </td>
+
+ 
 <td>
     @php
         $itemTotal = (isset($item['total_price']) && isset($item['quantite'])) ? $item['total_price'] : 0;
         $cartTotal += $itemTotal;  
     @endphp
-    <p class="mb-0" id="item-total-{{ $id }}">{{ number_format($itemTotal, 2) }} $</p>
+    <p class="mb-0" id="item-total-{{ $id }}">{{ number_format($itemTotal, 2) }} DT</p>
 </td>
 
                         <td>
@@ -80,15 +83,15 @@
                     <h2 class="mb-4">Cart Total</h2>
                     <div class="d-flex justify-content-between mb-3">
                         <span>Subtotal:</span>
-                        <span id="cart-subtotal">${{ number_format($cartTotal, 2) }}</span> <!-- Display subtotal -->
+                        <span id="cart-subtotal">DT{{ number_format($cartTotal, 2) }}</span> <!-- Display subtotal -->
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <span>Shipping:</span>
-                        <span>Flat rate: $3.00</span>
+                        <span>Flat rate: DT 7.00</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 border-top pt-3">
                         <h5>Total:</h5>
-                        <h5 id="cart-total">${{ number_format($cartTotal + 3.00, 2) }}</h5>
+                        <h5 id="cart-total">DT{{ number_format($cartTotal + 7.00, 2) }}</h5>
                     </div>
                     <button class="btn btn-primary w-100 text-uppercase" type="button">Proceed to Checkout</button>
                 </div>
