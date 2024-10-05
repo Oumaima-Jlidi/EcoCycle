@@ -35,7 +35,7 @@ Route::post('/add-to-cart', [OrderController::class,'addToCart'])->name('add.to.
 
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity']);
-Route::get('/cartLength', [CartController::class, 'index']);
+ Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
 // Route to remove an item from the cart

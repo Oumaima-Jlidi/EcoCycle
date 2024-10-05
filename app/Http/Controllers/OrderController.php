@@ -142,6 +142,44 @@ class OrderController extends Controller
             'redirect' => false   
         ]);
     }
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'adresse_livraison' => 'required|string|max:255',
+        ]);
+    
+        $cart = session('cart', []);
+    
+        if (empty($cart)) {
+            return redirect()->route('cart.show')->with('error', 'Your cart is empty. Please add items to your cart before proceeding to checkout.');
+        }
+    
+        // Initialize subtotal
+        $subtotal = 0;
+    
+        // Create an array to store only product IDs
+        $productIds = [];
+        foreach ($cart as $item) {
+            $subtotal += $item['total_price'] ?? 0; // Calculate subtotal
+            $productIds[] = $item['id']; // Collect product IDs
+        }
+    
+        $orderData = [
+            'montant_total' => $subtotal,  
+            'statut' => 'en cours',  
+            'date_commande' => now(), 
+            'adresse_livraison' => $validatedData['adresse_livraison'],  
+            'produits' => json_encode($productIds),  // Save only product IDs
+            'user_id' => auth()->id(),  
+        ];
+    
+        Commande::create($orderData);  
+    
+        session()->forget('cart');
+    
+        return redirect()->route('produits.indexFront')->with('success', 'Your order has been placed successfully!');
+    }
+    
     
     
 }

@@ -93,8 +93,8 @@
                         <h5>Total:</h5>
                         <h5 id="cart-total">DT{{ number_format($cartTotal + 7.00, 2) }}</h5>
                     </div>
-                    <button class="btn btn-primary w-100 text-uppercase" type="button">Proceed to Checkout</button>
-                </div>
+                    <a href="{{ route('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                    </div>
             </div>
         </div>
     </div>

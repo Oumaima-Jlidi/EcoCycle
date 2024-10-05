@@ -5,10 +5,6 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-   
-
-    
-
     public function remove($id)
     {
         $cart = session()->get('cart', []);
@@ -55,6 +51,25 @@ class CartController extends Controller
         ]);
     }
     
+    public function checkout()
+    {
+        // Get the cart items from the session
+        $cart = session('cart', []);
+        
+        // If the cart is empty, redirect to the cart page with an error message
+        if (empty($cart)) {
+            return redirect()->route('cart.show')->with('error', 'Your cart is empty. Please add items to your cart before proceeding to checkout.');
+        }
+    
+        // Calculate the total amount for the cart
+        $subtotal = 0;
+        foreach ($cart as $item) {
+            $subtotal += $item['total_price'] ?? 0; // Accumulate the total price of each item
+        }
+    
+        // Optionally, you can pass any additional data needed for the checkout view
+        return view('Front.pages.order.checkout', compact('cart', 'subtotal'));
+    }
     
     
 }
