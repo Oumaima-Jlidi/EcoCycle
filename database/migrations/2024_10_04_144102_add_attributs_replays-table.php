@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sujets', function (Blueprint $table) {
-            $table->id();
-            $table->string('content'); 
-            $table->string('statut')->default('nonResolu'); 
-            $table->timestamps();
+        Schema::table('replay_sujets', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
         });
     }
 
@@ -28,6 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sujets');
+        Schema::table('replay_sujets', function (Blueprint $table) {
+            $table->dropForeign(['user_id']); 
+            $table->dropColumn('user_id');  
+                });
     }
 };

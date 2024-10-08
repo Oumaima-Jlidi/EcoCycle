@@ -22,9 +22,20 @@ use App\Http\Controllers\NotFoundController;
 */
 
 
-Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
+Route::get('/AddPost', [PostController::class, 'create'])->name('posts.add');
 Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
+Route::get('/comments', [ReplayController::class, 'comments'])->name('comments.index');
+Route::post('/posts/store', [PostController::class, 'AddPost'])->name('posts.store');
+Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('posts.delete')->middleware('auth');
+Route::get('/posts/{id}', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
+Route::match(['get', 'post'], '/show/{id}', [ReplayController::class, 'show'])->name('show.index');
+Route::delete('/replay/{id}', [ReplayController::class, 'delete'])->name('replays.delete')->middleware('auth');
 
+Route::get('/Replays/{id}', [ReplayController::class, 'edit'])->name('replay.edit')->middleware('auth');
+Route::put('/Replays/{id}', [ReplayController::class, 'update'])->name('replays.update');
+
+
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
 Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
@@ -32,7 +43,7 @@ Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits
 
 
 Route::get('/', function () {
-    return view('TemplateForum.dashPosts');
+    return view('TemplateForum.AddSujet');
 });
 
 
