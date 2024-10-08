@@ -39,7 +39,7 @@
                     <div class="col-12 col-lg-9">
 
                         <h4 class="mb-4" data-aos="fade-down" data-aos-easing="linear"><i class="bi bi-chat-dots me-2"></i> Comments</h4>
-
+                        @foreach($replays as $replay)
                         <div class="post-box d-flex mb-5 mx-0" data-aos="fade-up" data-aos-easing="linear" style="padding-bottom: 34px;">
                             <div>
                                 <div class="card-header card-header-action py-3">
@@ -50,8 +50,12 @@
                                             </div>
                                         </div>
                                         <div class="media-body">
-                                            <div><a href="#" style="color: #81c408 ;">What is your favorite AI project you found recently?</a></div>
-                                            <div class="fs-7"><a href="#" style="color: #81c408 ;">Adaline Riley</a><span class="ms-3"> 03 hrs ago in </span> <a href="#" class="cat" style="color: #81c408 ;">AI</a></div>
+                                            <div><a href="#" style="color: #81c408 ;">{{ $replay->sujet->content }} @if ( $replay->sujet->statut == 'non_resolu')
+    🔓
+@else
+    🔒
+@endif</a></div>
+                                            <div class="fs-7"><a href="#" style="color: #81c408 ;">{{ $replay->sujet->user->name }}</a><span class="ms-3"> {{ $replay->sujet->created_at->diffForHumans() }}</span> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -59,19 +63,23 @@
 
                                     <div class="dashboard-comment px-5 py-3 " style="background-color: rgba(121,127,135,.1); border-radius: 15px;">
                                         <h6><b>Your Comment</b></h6>
-                                        <p class="my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et facilis, soluta vitae porro, praesentium deserunt explicabo optio laborum.
-                                            Quidem consequuntur modi atque, placeat repellat, perferendis aperiam, fugiat harum ullam aspernatur dicta doloribus qui quo corrupti natus reprehenderit...</p>
+                                        <p class="my-2">{!! $replay->content !!}</p>
 
                                         <div class="d-flex align-items-center pt-3 pt-sm-0">
 
-                                            <button type="button" class="btn btn-outline-secondary px-3 px-xl-4 me-3">
-                                                <i class="bi bi-pen fs-xl me-lg-1 me-xl-2"></i>
-                                                <span class="d-none d-lg-inline">Edit</span>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger px-3 px-xl-4">
+                                        <a href="{{ route('replay.edit', $replay->id) }}" class="btn btn-outline-secondary px-3 px-xl-4 me-3">
+                                            <i class="bi bi-pen fs-xl me-lg-1 me-xl-2"></i>
+                                            <span class="d-none d-lg-inline">Edit</span>
+                                        </a>
+
+                                            <form action="{{ route('replays.delete', $replay->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger px-3 px-xl-4" onclick="return confirm('Are you sure you want to delete this post?')">
                                                 <i class="bi bi-trash fs-xl me-lg-1 me-xl-2"></i>
                                                 <span class="d-none d-lg-inline">Delete</span>
                                             </button>
+                                        </form>
                                         </div>
                                     </div>
 
@@ -79,20 +87,11 @@
 
                             </div><!--/card-->
                         </div>
+                        @endforeach
 
 
 
-
-                        <div class="pagination-2" data-aos="fade-up" data-aos-easing="linear" style="color: #81c408 ;">
-                            <ul>
-                                <li><a href="#" style="color: #81c408 ;"><i class="bi bi-arrow-left"></i></a></li>
-                                <li><a href="#" style="color: #81c408 ;">1</a></li>
-                                <li><span class="current">2</span></li>
-                                <li><a href="#" style="color: #81c408 ;">3</a></li>
-                                <li><a href="#" style="color: #81c408 ;">4</a></li>
-                                <li><a href="#" style="color: #81c408 ;"><i class="bi bi-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
+                       
 
                     </div>
 

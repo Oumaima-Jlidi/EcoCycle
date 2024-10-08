@@ -22,17 +22,27 @@ use App\Http\Controllers\PasswordController;
 */
 
 
-Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
+Route::get('/AddPost', [PostController::class, 'create'])->name('posts.add');
 Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
+Route::get('/comments', [ReplayController::class, 'comments'])->name('comments.index');
+Route::post('/posts/store', [PostController::class, 'AddPost'])->name('posts.store');
+Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('posts.delete')->middleware('auth');
+Route::get('/posts/{id}', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
+Route::match(['get', 'post'], '/show/{id}', [ReplayController::class, 'show'])->name('show.index');
+Route::delete('/replay/{id}', [ReplayController::class, 'delete'])->name('replays.delete')->middleware('auth');
 
+Route::get('/Replays/{id}', [ReplayController::class, 'edit'])->name('replay.edit')->middleware('auth');
+Route::put('/Replays/{id}', [ReplayController::class, 'update'])->name('replays.update');
+
+
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
+Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
+Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
 
-Route::get('/home', function () {
-    return view('Front.welcome');
-});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
@@ -46,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
      Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
  
 });
+
+
+
+
 Route::middleware(['auth', 'admin'])->group(function () {
    
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
@@ -59,7 +73,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::fallback([NotFoundController::class, 'index']);
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 
+
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
