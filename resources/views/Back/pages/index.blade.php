@@ -24,11 +24,11 @@
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                          <p class="card-category">Visitors</p>
-                          <h4 class="card-title">1,294</h4>
-                        </div>
-                      </div>
+    <div class="numbers">
+        <p class="card-category">Utilisateurs</p>
+        <h4 class="card-title">{{ $usersCount }}</h4> <!-- Affiche le nombre d'utilisateurs -->
+    </div>
+</div>
                     </div>
                   </div>
                 </div>

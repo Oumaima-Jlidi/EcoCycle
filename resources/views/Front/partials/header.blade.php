@@ -34,9 +34,16 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            </li>
+                            @if (Auth::check())
+    <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="my-auto">
+        <i class="fas fa-user fa-2x"></i>
+    </a>
+@else
+    
+@endif
+
+
                             @guest
         <a href="{{ route('login') }}"
            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -52,6 +59,7 @@
             </a>
         </form>
     @endguest
+
                         </div>
                     </div>
                 </nav>

@@ -4,6 +4,7 @@ import '../forum/vendors/jquery/jquery.min.js';
 import '../forum/vendors/popper/popper.min.js';
 import '../forum/vendors/simplebar/simplebar.min.js';
 import '../forum/js/main.js';
+import 'bootstrap';
 import AOS from 'aos';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 

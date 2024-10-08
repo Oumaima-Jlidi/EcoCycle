@@ -13,7 +13,6 @@
                 </div>
                 <div class="media-body">
                     <h5>  {{ auth()->user()->name ? auth()->user()->name : ''  }}</h5>
-                   
                 </div>
             </div>
 
