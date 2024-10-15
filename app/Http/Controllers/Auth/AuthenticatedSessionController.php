@@ -18,16 +18,30 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
+    
+        // Vérifiez si l'utilisateur est actif
+        if (!Auth::user()->is_active) {
+            // Déconnecter l'utilisateur
+            Auth::logout();
+    
+            // Regénérer le token de session
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+    
+            // Rediriger avec un message d'erreur
+            return redirect('/login')->withErrors(['account' => 'Votre compte est désactivé. Veuillez contacter l\'administrateur.']);
+        }
+    
         $request->session()->regenerate();
-
-// Vérifier le rôle de l'utilisateur et rediriger en conséquence
-if (Auth::user()->role_id === 1) { // Remplacez 1 par l'ID de votre rôle administrateur
-    return redirect(RouteServiceProvider::ADMIN);
-}
-
-return redirect(RouteServiceProvider::HOME);
+    
+        // Vérifier le rôle de l'utilisateur et rediriger en conséquence
+        if (Auth::user()->role_id === 1) { // Remplacez 1 par l'ID de votre rôle administrateur
+            return redirect(RouteServiceProvider::ADMIN);
+        }
+    
+        return redirect(RouteServiceProvider::HOME);
     }
+    
 
     public function destroy(Request $request)
     {

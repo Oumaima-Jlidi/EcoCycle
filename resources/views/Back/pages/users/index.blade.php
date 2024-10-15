@@ -8,7 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <!-- Optionally add header content here -->
+                <div class="card-tools">
+                <a href="{{ route('users.export.pdf') }}" class="btn btn-label-success btn-round btn-sm me-2">
+        <span class="btn-label">
+            <i class="fa fa-file-pdf"></i>
+        </span>
+        Exporter en PDF
+    </a>
+                      </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -38,6 +45,13 @@
             <td>
                 <div style="display: flex; align-items: center;">
                     @if ($user->role && $user->role->roleName !== 'admin')
+                    <form action="{{ route('users.toggleStatus', $user->id) }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit" class="btn btn-link {{ $user->is_active ? 'btn-danger' : 'btn-success' }}" title="{{ $user->is_active ? 'Désactiver' : 'Activer' }}">
+                <i class="fa {{ $user->is_active ? 'fa-toggle-off' : 'fa-toggle-on' }}"></i>
+                {{ $user->is_active ? 'Désactiver' : 'Activer' }}
+            </button>
+        </form>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

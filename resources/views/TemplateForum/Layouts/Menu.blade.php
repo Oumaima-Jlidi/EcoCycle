@@ -6,12 +6,13 @@
             <div class="media align-items-center">
                 <div class="media-head me-2">
                     <div class="avatar avatar-lg">
-                        <img src="{{ asset('/forumimg/img/avatar/1.jpg') }}" alt="user" class="avatar-img rounded-circle">
+                    <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('default-profile.png') }}" 
+                    alt="user" class="avatar-img rounded-circle">
+                    <!-- <img src="{{ asset('/forumimg/img/avatar/1.jpg') }}" alt="user" class="avatar-img rounded-circle"> -->
                     </div>
                 </div>
                 <div class="media-body">
-                    <h5>Abram Marvyn</h5>
-                    <p class="small mb-0">Member since 2009</p>
+                    <h5>  {{ auth()->user()->name ? auth()->user()->name : ''  }}</h5>
                 </div>
             </div>
 

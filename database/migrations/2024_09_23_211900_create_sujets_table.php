@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('sujets', function (Blueprint $table) {
             $table->id();
-            $table->string('content'); // Type de déchet (organique, plastique, etc.)
-         
-            $table->string('statut')->default('nonResolu'); // Statut du déchet (ex : Collecté, Recyclé)
+            $table->string('content'); 
+            $table->string('statut')->default('nonResolu'); 
             $table->timestamps();
         });
     }
