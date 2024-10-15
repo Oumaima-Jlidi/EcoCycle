@@ -7,6 +7,12 @@ use App\Models\Collecte;
 
 class CollecteController extends Controller
 {
+    public function indexfront()
+    {
+        $collectes = Collecte::all();
+        return view('Front.pages.collect.index')->with('collectes', $collectes);
+
+    }
 
     public function index()
     {

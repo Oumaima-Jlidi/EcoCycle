@@ -46,6 +46,7 @@ Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produit
 Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
+Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collects.indexfront');
 
 
 Route::middleware(['auth'])->group(function () {

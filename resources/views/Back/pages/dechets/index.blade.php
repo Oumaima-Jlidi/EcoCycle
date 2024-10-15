@@ -73,6 +73,9 @@
                               class="form-control"
                               placeholder="Quantité de Déchet"
                               required
+                              min="0"
+  step="any" 
+  title="Veuillez entrer un chiffre positif."
                             />
                           </div>
                         </div>
@@ -108,6 +111,8 @@
                               class="form-control"
                               placeholder="Statut"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -205,6 +210,9 @@
                               class="form-control"
                               placeholder="Quantité de Déchet"
                               required
+                              min="0"
+  step="any" 
+  title="Veuillez entrer un chiffre positif."
                             />
                           </div>
                         </div>
@@ -243,6 +251,8 @@
                               class="form-control"
                               placeholder="Statut"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>

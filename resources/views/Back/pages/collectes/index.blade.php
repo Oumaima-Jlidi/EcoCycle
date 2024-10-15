@@ -61,6 +61,8 @@
                               class="form-control"
                               placeholder="Nom collecte"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -73,6 +75,8 @@
                               class="form-control"
                               placeholder="Zone de Collecte"
                               required
+                              pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -85,6 +89,8 @@
                               class="form-control"
                               placeholder="Statut"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -108,6 +114,9 @@
                               class="form-control"
                               placeholder="Quantité de Collecte"
                               required
+                              min="0"
+  step="any"
+  title="Veuillez entrer un chiffre positif."
                             />
                           </div>
                         </div>
@@ -175,6 +184,8 @@
                               class="form-control"
                               placeholder="Nom collecte"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -188,6 +199,8 @@
                               class="form-control"
                               placeholder="Zone de Collecte"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -201,6 +214,8 @@
                               class="form-control"
                               placeholder="Statut"
                               required
+                               pattern="[A-Za-zÀ-ÿ\s]+"
+  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -226,6 +241,9 @@
                               class="form-control"
                               placeholder="Quantité de Collecte"
                               required
+                              min="0"
+  step="any" 
+  title="Veuillez entrer un chiffre positif."
                             />
                           </div>
                         </div>
