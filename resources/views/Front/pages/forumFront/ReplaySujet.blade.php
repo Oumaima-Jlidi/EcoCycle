@@ -66,7 +66,7 @@
                                                 <div class="avatar">
                                                     <a href="#">
                                                         <img class="rounded-circle" src="{{ $sujet->user->image ? asset('storage/' . $sujet->user->image) : asset('default-profile.png') }}" alt="User">
-                                                        </a>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="media-body">
@@ -94,16 +94,22 @@
 
                                         <div class="post-stats">
                                             <div class="post-item">
-                                                <a href="#">
-                                                    <div class="post-icon"><i class="bi bi-hand-thumbs-up"></i></div>
-                                                    <div class="post-text">70</div>
-                                                </a>
+                                                <form action="{{ route('like', ['likeableId' => $sujet->id, 'likeableType' => 'sujet']) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="type" value="like">
+                                                    <button type="submit" class="btn btn-link p-0 text-decoration-none">
+                                                        ❤️ Like ({{ $sujet->likes->where('type', 'Like')->count() }})
+                                                    </button>
+                                                </form>
                                             </div>
                                             <div class="post-item">
-                                                <a href="#">
-                                                    <div class="post-icon"><i class="bi bi-hand-thumbs-down"></i></div>
-                                                    <div class="post-text">24</div>
-                                                </a>
+                                                <form action="{{ route('like', ['likeableId' => $sujet->id, 'likeableType' => 'sujet']) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="type" value="dislike">
+                                                    <button type="submit" class="btn btn-link p-0 text-decoration-none">
+                                                        💔 Dislike ({{ $sujet->likes->where('type', 'dislike')->count() }})
+                                                    </button>
+                                                </form>
                                             </div>
 
 
@@ -125,8 +131,20 @@
                                                 <p class="mb-0">{!! $replay->content !!}</p>
                                                 <div class="post-links d-flex mt-1">
 
-                                                    <a href="#" class="p-0 me-3"><span class="bi bi-heart me-1"></span> Like</a>
-                                                    <a href="#" class="p-0 me-3"><span class="bi bi-reply-all me-1"></span> Reply</a>
+                                                    <form action="{{ route('like', ['likeableId' => $replay->id, 'likeableType' => 'reply']) }}" method="POST" style="margin-right: 15px;">
+                                                        @csrf
+                                                        <input type="hidden" name="type" value="like">
+                                                        <button type="submit" class="btn btn-link p-0 text-decoration-none">
+                                                            ❤️ Like ({{ $replay->likes->where('type', 'like')->count() }})
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('like', ['likeableId' => $replay->id, 'likeableType' => 'reply']) }}" method="POST" style="margin-right: 15px;">
+                                                        @csrf
+                                                        <input type="hidden" name="type" value="dislike">
+                                                        <button type="submit" class="btn btn-link p-0 text-decoration-none">
+                                                            💔 Dislike ({{ $replay->likes->where('type', 'dislike')->count() }})
+                                                        </button>
+                                                    </form> <a href="#" class="p-0 me-3"><span class="bi bi-reply-all me-1"></span> Reply</a>
 
                                                     <p class="p-0 me-2"><span class="bi bi-clock-history me-1"></span>{{ $replay->created_at->diffForHumans() }}</p>
 
@@ -156,13 +174,13 @@
                                             </div>
                                         </div>
                                     </form>
-@else
-<h3 class="row mb-3" style="margin-left: 10px;margin-right: 10px;text-align: center;">
-    Ce sujet a été résolu et ne nécessite plus d'intervention.
-</h3>
+                                    @else
+                                    <h3 class="row mb-3" style="margin-left: 10px;margin-right: 10px;text-align: center;">
+                                        Ce sujet a été résolu et ne nécessite plus d'intervention.
+                                    </h3>
 
-@endif
-                                    
+                                    @endif
+
 
 
                                 </div>

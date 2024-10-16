@@ -29,8 +29,8 @@ class PostController extends Controller
 
     public function Forum()
     {
-        $sujets = Sujet::all();
-        return view ('Front/pages/forumFront/ListeSujet', compact('sujets'));
+        $posts = Sujet::all();
+        return view ('Front/pages/forumFront/ListeSujet', compact('posts'));
    
     }
     public function create()

@@ -46,7 +46,7 @@
 
                         <div class="discussions">
                             <!-- Loop through the subjects and display them -->
-                            @foreach($sujets as $sujet)
+                            @foreach($posts as $sujet)
                                 <div class="post-box-2" data-aos="fade-up" data-aos-easing="linear">
                                     <div class="user-box-img">
                                         <a href="#">
