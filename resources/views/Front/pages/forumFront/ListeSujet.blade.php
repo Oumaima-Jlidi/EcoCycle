@@ -31,12 +31,14 @@
                             <div class="col-xl-5 mt-3 mb-3" style="margin-left: 44px;">
                                 <div class="nav flex-nowrap align-items-center">
                                     <div class="search-form nav-item w-100">
-                                        <form>
-                                            <input class="border-0" type="search" placeholder="Search" aria-label="Search">
+                                        <form action="{{ route('subjects.search') }}" method="GET" id="searchForm">
+                                            <input id="searchInput" class="border-0" type="search" name="query" placeholder="Search by keyword, user, likes/dislikes" aria-label="Search">
                                         </form>
                                     </div>
+
                                 </div>
                             </div>
+
 
                             <ul>
                                 <a class="btn btn me-3" style="background-color: #81c408;" href="{{ route('posts.add') }}">Add Subject</a>
@@ -46,42 +48,47 @@
 
                         <div class="discussions">
                             <!-- Loop through the subjects and display them -->
+                            @if($posts->isEmpty())
+                            <p>No subjects found matching your search criteria.</p>
+                            @else
                             @foreach($posts as $sujet)
-                                <div class="post-box-2" data-aos="fade-up" data-aos-easing="linear">
-                                    <div class="user-box-img">
-                                        <a href="#">
-                                        <img src="{{  $sujet->user->image ? asset('storage/' .  $sujet->user->image) : asset('default-profile.png') }}" 
-                                        alt="user" class="img-fluid">
+                            <div class="post-box-2" data-aos="fade-up" data-aos-easing="linear">
+                                <div class="user-box-img">
+                                    <a href="#">
+                                        <img src="{{  $sujet->user->image ? asset('storage/' .  $sujet->user->image) : asset('default-profile.png') }}"
+                                            alt="user" class="img-fluid">
+                                    </a>
+                                    <span class="title-box-name d-block d-md-none d-lg-none">
+                                        <a href="#">{{ $sujet->user->name }}</a>
+                                    </span>
+                                </div>
+
+                                <div class="title-box">
+                                    <h6>
+                                        <a href="{{ route('show.index', $sujet->id) }}">
+                                            {{ $sujet->content }}
+                                            @if ($sujet->statut == 'non_resolu')
+                                            🔓
+                                            @else
+                                            🔒
+                                            @endif
                                         </a>
-                                        <span class="title-box-name d-block d-md-none d-lg-none">
+                                    </h6>
+                                    <div class="d-flex align-items-center flex-wrap">
+                                        <span class="title-box-name d-none d-md-block d-lg-block">
                                             <a href="#">{{ $sujet->user->name }}</a>
                                         </span>
-                                    </div>
-
-                                    <div class="title-box">
-                                        <h6>
-                                            <a href="{{ route('show.index', $sujet->id) }}">
-                                                {{ $sujet->content }} @if ($sujet->statut == 'non_resolu')
-    🔓
-@else
-    🔒
-@endif
-                                            </a>
-                                        </h6>
-                                        <div class="d-flex align-items-center flex-wrap">
-                                            <span class="title-box-name d-none d-md-block d-lg-block">
-                                                <a href="#">{{ $sujet->user->name }}</a>
-                                            </span>
-                                            <span class="title-box-text">
-                                                <i class="bi bi-clock-history"></i> {{ $sujet->created_at->diffForHumans() }}
-                                            </span>
-                                            <span class="title-box-text">
-                                                <i class="bi bi-chat-dots"></i> {{ $sujet->replays->count() }} replies
-                                            </span>
-                                        </div>
+                                        <span class="title-box-text">
+                                            <i class="bi bi-clock-history"></i> {{ $sujet->created_at->diffForHumans() }}
+                                        </span>
+                                        <span class="title-box-text">
+                                            <i class="bi bi-chat-dots"></i> {{ $sujet->replays->count() }} replies
+                                        </span>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
+                            @endif
                         </div><!--/Discussions-->
                     </div>
                 </div>

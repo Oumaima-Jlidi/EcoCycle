@@ -35,6 +35,7 @@ Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('posts.del
 Route::get('/posts/{id}', [PostController::class, 'edit'])->name('posts.edit')->middleware('auth');
 Route::match(['get', 'post'], '/show/{id}', [ReplayController::class, 'show'])->name('show.index');
 Route::delete('/replay/{id}', [ReplayController::class, 'delete'])->name('replays.delete')->middleware('auth');
+Route::get('/subjects/search', [PostController::class, 'search'])->name('subjects.search');
 
 Route::get('/Replays/{id}', [ReplayController::class, 'edit'])->name('replay.edit')->middleware('auth');
 Route::put('/Replays/{id}', [ReplayController::class, 'update'])->name('replays.update');

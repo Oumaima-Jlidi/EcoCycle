@@ -9,9 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> ➕ Add Post</title>
 
-    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
 </head>
 
 <body>
@@ -21,8 +19,6 @@
 
 @extends('Front.frontIndex')
 @section('frontSection')
-
-  
 
     <div class="vine-wrapper">
         <section class="dashboard">
@@ -39,27 +35,47 @@
                         <div class="col-11" style="margin-left: 45px;">
                             <div class="dashboard-card">
                                 <div class="dashboard-body">
-                              
+
+                                    <!-- Affichage des erreurs de validation -->
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf 
+                                        @csrf
 
                                         <div class="row g-3">
-                                            <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
+                                            <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear" >
                                                 <label class="form-label">Title</label>
-                                                <input type="text" name="content" placeholder="Title" class="form-control" required>
+                                                <input type="text" name="content" placeholder="Title" class="form-control @error('content') is-invalid @enderror" value="{{ old('content') }}" required>
+                                                @error('content')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                 <div class="upload-image my-3">
                                                     <p class="mb-2">PNG, JPG, GIF, WEBP or MP4. Max 200mb.</p>
-                                                    <input type="file" name="image" class="form-control">
+                                                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                                                    @error('image')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                 <label class="form-label">Description</label>
-                                                <textarea class="form-custom form-custom-textarea form-control" name="description" rows="12" id="editor" required></textarea>
-                                                </div>
+                                                <textarea class="form-custom form-custom-textarea form-control @error('description') is-invalid @enderror" name="description" rows="12" id="editor" required>{{ old('description') }}</textarea>
+                                                @error('description')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
 
                                         <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
@@ -76,7 +92,6 @@
         </section>
     </div>
 @endsection
-
 
 </body>
 </html>

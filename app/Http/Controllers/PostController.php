@@ -41,11 +41,12 @@ class PostController extends Controller
    
     public function AddPost(Request $request)
     {
-        // Validate incoming request
+        
+        
         $request->validate([
-            'content' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+            'content' => ['required', 'string', 'max:255'],
+            'image' => 'nullable|file|mimes:jpeg,jpg,png,gif,webp,mp4|max:204800', // 200MB max
+            'description' => 'required',
         ]);
 
         // Handle the image upload if provided
@@ -115,5 +116,37 @@ class PostController extends Controller
         // Redirect to a relevant page with a success message
         return redirect()->route('posts.index')->with('success', 'Subject updated successfully.');
     }
-   
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        // Requête pour filtrer les sujets par mot-clé, nom de l'utilisateur ou likes/dislikes
+        $posts = Sujet::where('content', 'LIKE', "%{$query}%")
+                    ->orWhere('description', 'LIKE',"%{$query}%")
+                    ->orWhere('statut', 'LIKE',"%{$query}%")
+
+            ->orWhereHas('user', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%");
+            })
+            ->orWhereHas('likes', function ($q) use ($query) {
+                $q->where('type', 'like');
+                
+            })
+            ->orWhereHas('likes', function ($q) use ($query) {
+                $q->where('type', 'dislike');
+                 
+            })
+            ->orWhereHas('likes', function ($q) use ($query) {
+                $q->whereHas('user', function ($u) use ($query) {
+                    $u->where('name', 'LIKE', "%{$query}%");
+                });
+            })
+    
+            ->get();
+    
+        // Retourner la vue avec les sujets filtrés
+        return view ('Front/pages/forumFront/ListeSujet', compact('posts'));
+    }
+    
+    
 }
