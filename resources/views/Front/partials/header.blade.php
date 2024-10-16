@@ -25,6 +25,7 @@
                             <a href="{{ route('produits.indexFront') }}" class="nav-item nav-link">Shop</a>
 
                             <a href="{{ route('forum.index') }}" class="nav-item nav-link">Forum</a>
+                            <a href="{{ route('collects.indexfront') }}" class="nav-item nav-link">Collects</a>
 
 
                         </div>

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CollecteController;
+use App\Http\Controllers\DechetController;
+
+
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\NotFoundController;
 use App\Http\Controllers\ProfileController;
@@ -44,6 +48,7 @@ Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produit
 Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
+Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collects.indexfront');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -74,6 +79,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
     Route::fallback([NotFoundController::class, 'index']);
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+    Route::resource('/collectes', CollecteController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('/dechets', DechetController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
 
 });
