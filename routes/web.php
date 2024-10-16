@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReplayController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::delete('/replay/{id}', [ReplayController::class, 'delete'])->name('replay
 Route::get('/Replays/{id}', [ReplayController::class, 'edit'])->name('replay.edit')->middleware('auth');
 Route::put('/Replays/{id}', [ReplayController::class, 'update'])->name('replays.update');
 
+Route::post('/like/{likeableId}/{likeableType}', [LikeController::class, 'likeOrDislike'])->name('like')->middleware('auth');
 
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
@@ -51,7 +53,7 @@ Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collec
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('TemplateForum.dashPosts');
+        return view('TemplateForum.AddSujet');
     });
     Route::fallback([NotFoundController::class, 'index']);
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');

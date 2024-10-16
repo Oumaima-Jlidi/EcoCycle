@@ -28,4 +28,10 @@ class Sujet extends Model
     {
         return $this->hasMany(ReplaySujet::class);
     }
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+    
+
 }

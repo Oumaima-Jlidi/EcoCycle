@@ -31,12 +31,7 @@
             <ul class="navbar-nav flex-column">
                 <li class="nav-info">Dashboard </li>
 
-                <li class="nav-item {{ url()->current() == route('posts.add') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('posts.add') }}">
-                    <span class="nav-icon-wrap"><i class="bi bi-plus-circle-dotted"></i></span>
-                    <span class="nav-link-text">Add Post</span>
-                </a>
-            </li>
+              
             <li class="nav-item {{ url()->current() == route('posts.index') ? 'active' : '' }}">
             <a class="nav-link " href="{{ route('posts.index') }}">
                     <span class="nav-icon-wrap"><i class="bi bi-journals"></i></span>
@@ -51,7 +46,13 @@
                 </li>
                 
                 <li class="nav-info">Account </li>
-                
+                <li class="nav-item {{ url()->current() == route('profile.show', ['id' => Auth::user()->id]) ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
+        <span class="nav-icon-wrap"><i class="bi bi-gear"></i></span>
+        <span class="nav-link-text">Profile</span>
+    </a>
+
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.html">
                         <span class="nav-icon-wrap"><i class="b bi-power"></i></span>

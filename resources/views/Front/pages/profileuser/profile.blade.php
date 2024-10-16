@@ -27,8 +27,10 @@
             <div class="container" style="padding-top: 64px;">
                 <div class="row">
                    
-
-                    <div class="col-12 col-lg-12">
+                <div class="col-sm-12 col-lg-3 mb-5">
+                        @include('TemplateForum.Layouts.Menu')
+                    </div>
+                    <div class="col-9 col-lg-9">
                         <h4 class="mb-4" data-aos="fade-down" data-aos-easing="linear">Mes informations</h4>
 
                         <div class="card shadow-sm">

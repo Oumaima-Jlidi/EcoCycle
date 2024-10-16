@@ -25,4 +25,9 @@ class ReplaySujet extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function likes()
+{
+    return $this->morphMany(Like::class, 'likeable');
+}
+
 }
