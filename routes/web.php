@@ -7,6 +7,9 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategorieArticleController;
+
 use App\Http\Controllers\NotFoundController;
 
 
@@ -22,12 +25,28 @@ use App\Http\Controllers\NotFoundController;
 */
 
 
-Route::get('/AddPost', [PostController::class, 'AddPost'])->name('posts.add');
+//Route::get('/AddPost', [ArticleController::class, 'create'])->name('articles.create');
 Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
 
-Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
+//Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
+//Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+ //Route::get('/articles', [ArticleController::class, 'store'])->name('articles.store');
 
+
+
+
+
+
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+Route::resource('categorie-articles', CategorieArticleController::class);
 
 Route::get('/', function () {
     return view('TemplateForum.dashPosts');
