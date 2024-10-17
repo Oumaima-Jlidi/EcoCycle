@@ -47,7 +47,7 @@ class ArticleController extends Controller
 
   public function edit(Article $article)
   {
-      return view('articles.edit', compact('article'));
+      return view('TemplateForum.EditPost', compact('article'));
   }
 
   public function update(Request $request, Article $article)

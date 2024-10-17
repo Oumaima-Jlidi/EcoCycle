@@ -9,6 +9,7 @@
     <meta name="robots" content="all,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>➕ Add Post</title>
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -25,7 +26,7 @@
     <section class="dashboard">
         <div class="container" style="padding-top: 64px;">
             <div class="row">
-                <div class="col-sm-6 col-lg-3 mb-5"></div>
+                <div class="col-sm-6 col-lg-3 mb-5">@include('TemplateForum.Layouts.Menu')</div>
                 <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear" style="margin-left: 45px;">
                     <i class="bi bi-plus-circle-dotted me-2"></i> Add Subject
                 </h4>
