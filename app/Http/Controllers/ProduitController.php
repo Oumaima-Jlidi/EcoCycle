@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Produit;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Categorie;
 
 class ProduitController extends Controller
 {
@@ -16,18 +17,39 @@ class ProduitController extends Controller
      */
     public function index()
     {
+        $categories = Categorie::all();
         $produits = Produit::all();
-        return view('Back.pages.produits.test')->with('produits', $produits);
+        return view('Back.pages.produits.test', compact('produits', 'categories'));
 
         //return view('Back.pages.test', compact('produits'));
     }
-    public function indexFront()
+
+    public function indexFront(Request $request)
     {
-        $produits = Produit::all();
-        return view('Front.pages.shop.shop')->with('produits', $produits);
+        $query = Produit::query();
 
-        //return view('Back.pages.test', compact('produits'));
+        // Filter by category if provided
+        if ($request->has('category_id') && $request->category_id) {
+            $query->where('categorie_id', $request->category_id);
+        }
+
+        // Filter by max price if provided
+        if ($request->has('max_price')) {
+            $query->where('prix', '<=', $request->max_price);
+        }
+
+        // Fetch filtered products with pagination
+        $produits = $query->paginate(6);
+
+        // Fetch categories with product count
+        $categories = Categorie::withCount('produits')->get();
+
+        return view('Front.pages.shop.shop', compact('produits', 'categories'));
     }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +72,9 @@ class ProduitController extends Controller
             'quantite' => 'required|string',
             'prix' => 'required|string',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour l'image
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'categorie_id' => 'required|exists:categories,id',
+
         ]);
 
         // Assigne l'ID de l'utilisateur connecté
@@ -96,9 +120,6 @@ class ProduitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    // Afficher le formulaire d'édition d'un produit
-
     public function edit($id)
     {
         $produit = Produit::findOrFail($id); // Trouver le produit par son ID
@@ -121,6 +142,8 @@ class ProduitController extends Controller
             'prix' => 'required|string',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour l'image
+            'categorie_id' => 'required|exists:categories,id',
+
         ]);
 
         // Trouver le produit par son ID

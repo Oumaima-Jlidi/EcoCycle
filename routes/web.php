@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\NotFoundController;
+use App\Http\Controllers\CategorieController;
 
 
 /*
@@ -27,8 +28,8 @@ Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
 
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
-Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
-Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
+Route::get('/shop', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
+Route::get('/shop/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
 Route::get('/', function () {
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
     Route::fallback([NotFoundController::class, 'index']);
+    Route::resource('/categories', CategorieController::class)->only(['index', 'store', 'update', 'destroy']);
 });
 
 
