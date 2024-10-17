@@ -8,7 +8,7 @@
     <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
     <meta name="robots" content="all,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📰 Posts</title>
+    <title>📰 Articles</title>
 
     <!-- Inclure les fichiers CSS avec Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -37,7 +37,7 @@
                         </div>
                         
                         <h4 class="mb-4" data-aos="fade-down" data-aos-easing="linear">
-                            <i class="bi bi-journals me-2"></i> Posts
+                            <i class="bi bi-journals me-2"></i> Articles
                         </h4>
 
                         @foreach($articles as $article)

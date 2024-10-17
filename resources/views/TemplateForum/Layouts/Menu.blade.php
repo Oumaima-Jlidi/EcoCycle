@@ -41,20 +41,20 @@
             <!-- Section titre pour le Dashboard -->
             <li class="nav-info">Dashboard</li>
 
-            <!-- Lien pour ajouter un post. Le menu sera actif si la route courante est 'articles.create' -->
+            <!-- Lien pour ajouter un Article. Le menu sera actif si la route courante est 'articles.create' -->
             <li class="nav-item {{ url()->current() == route('articles.create') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('articles.create') }}">
                     <!-- Icône et texte du lien -->
                     <span class="nav-icon-wrap"><i class="bi bi-plus-circle-dotted"></i></span>
-                    <span class="nav-link-text">Add Post</span>
+                    <span class="nav-link-text">Add Article</span>
                 </a>
             </li>
 
-            <!-- Lien pour afficher tous les posts. Le menu sera actif si la route courante est 'articles.store' -->
+            <!-- Lien pour afficher tous les Article. Le menu sera actif si la route courante est 'articles.store' -->
             <li class="nav-item {{ url()->current() == route('articles.store') ? 'active' : '' }}">
                 <a class="nav-link " href="{{ route('articles.store') }}">
                     <span class="nav-icon-wrap"><i class="bi bi-journals"></i></span>
-                    <span class="nav-link-text">Posts</span>
+                    <span class="nav-link-text">Articles</span>
                 </a>
             </li>
 

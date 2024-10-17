@@ -10,12 +10,12 @@ class ArticleController extends Controller
   public function index()
   {
     $articles = Article::paginate(10); // Nombre d'articles par page
-      return view('TemplateForum.dashPosts', compact('articles'));
+      return view('TemplateForum.dashArticles', compact('articles'));
   }
 
   public function create()
   {
-      return view('TemplateForum.create');
+      return view('TemplateForum.createArticle');
   }
 
   public function store(Request $request)
@@ -47,7 +47,7 @@ class ArticleController extends Controller
 
   public function edit(Article $article)
   {
-      return view('TemplateForum.EditPost', compact('article'));
+      return view('TemplateForum.EditArticle', compact('article'));
   }
 
   public function update(Request $request, Article $article)

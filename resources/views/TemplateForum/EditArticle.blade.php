@@ -8,7 +8,7 @@
     <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
     <meta name="robots" content="all,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ➕ Edit Post</title>
+    <title> ➕ Edit Article</title>
     <link href="frontCss/css/bootstrap.min.css" rel="stylesheet">
     <link href="frontCss/css/style.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -27,7 +27,7 @@
         <section class="dashboard">
             <div class="container" style="padding-top: 64px;">
                 <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear" style="margin-left: 45px;">
-                    <i class="bi bi-pencil-square me-2"></i> Edit Subject
+                    <i class="bi bi-pencil-square me-2"></i> Edit Article
                 </h4>
 
                 <div class="row g-0">
@@ -43,7 +43,7 @@
                                     <div class="alert alert-danger">{{ session('error') }}</div>
                                 @endif
 
-                                <!-- Form to edit the subject -->
+                                <!-- Form to edit the Article -->
                                 <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -83,7 +83,7 @@
                                         @endif
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Update Subject</button>
+                                    <button type="submit" class="btn btn-primary">Update Article</button>
                                     <a href="{{ route('articles.index') }}" class="btn btn-secondary">Cancel</a>
                                 </form>
                             </div>
