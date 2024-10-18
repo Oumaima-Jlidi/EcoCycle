@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('replay_sujets', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('sujet_id')->constrained('sujets')->onDelete('cascade'); // Clé étrangère vers la collecte
-            $table->timestamps();
-        });
+        Schema::table('replay_sujets', function (Blueprint $table) {
+            $table->text('content');
+   });
     }
 
     /**
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('replay_sujets');
+        Schema::table('replay_sujets', function (Blueprint $table) {
+            $table->dropColumn('content');
+        });
     }
 };

@@ -71,7 +71,7 @@
 
                                             <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                 <label class="form-label">Description</label>
-                                                <textarea class="form-custom form-custom-textarea form-control @error('description') is-invalid @enderror" name="description" rows="12" id="editor" required>{{ old('description') }}</textarea>
+                                                <textarea class="form-control"  name="description" rows="12" id="editor" required>{{ old('description') }}</textarea>
                                                 @error('description')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

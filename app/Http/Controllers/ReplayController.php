@@ -40,7 +40,7 @@ class ReplayController extends Controller
         if ($request->isMethod('post')) {
             // Validate the replay content
             $request->validate([
-                'content' => 'required|string',
+                'content' =>  ['required', 'string', 'max:1000'],
             ]);
     
             // Create the new replay for the subject
