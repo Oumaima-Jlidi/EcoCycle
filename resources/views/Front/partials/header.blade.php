@@ -26,6 +26,8 @@
 
                             <a href="{{ route('forum.index') }}" class="nav-item nav-link">Forum</a>
                             <a href="{{ route('collects.indexfront') }}" class="nav-item nav-link">Collects</a>
+                            <a href="{{ route('collects.indexfront') }}" class="nav-item nav-link">Evenement</a>
+
 
 
                         </div>
