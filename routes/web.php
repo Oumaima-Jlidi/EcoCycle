@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CollecteController;
 use App\Http\Controllers\DechetController;
+use App\Http\Controllers\ArticleController;
 
 
 use App\Http\Controllers\OrderController;
@@ -50,6 +51,8 @@ Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits
 
 
 Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collects.indexfront');
+Route::get('/articles/front', [ArticleController::class, 'indexfront'])->name('articles.indexfront');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -82,6 +85,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
     Route::resource('/collectes', CollecteController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/dechets', DechetController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('/articles', ArticleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
 
 });

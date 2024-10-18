@@ -21,11 +21,15 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            
+                        <a href="{{ route('articles.indexfront') }}" class="nav-item nav-link">Articles</a>
                             <a href="{{ route('produits.indexFront') }}" class="nav-item nav-link">Shop</a>
 
                             <a href="{{ route('forum.index') }}" class="nav-item nav-link">Forum</a>
                             <a href="{{ route('collects.indexfront') }}" class="nav-item nav-link">Collects</a>
+                            
+
+
 
 
                         </div>
