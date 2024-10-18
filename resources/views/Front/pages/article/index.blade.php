@@ -36,7 +36,8 @@
                 @foreach ($articles as $article)
                     <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-easing="linear">
                         <div class="dashboard-card mb-4">
-                            <img src="{{ asset('img/collect.PNG') }}" alt="Collect Image" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            <img src="{{ asset('img/Article.PNG') }}" alt="Article Image" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            
                             <div class="dashboard-body">
                                 <!-- Articles details -->
                                 <h5 class="card-title">Titre Article: {{ $article->titre }}</h5>
