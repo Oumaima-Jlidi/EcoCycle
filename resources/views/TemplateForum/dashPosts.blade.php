@@ -54,7 +54,7 @@
 @endif
                                     </a>
                                 </h5>
-                                <p class="mb-4">{{ \Illuminate\Support\Str::limit($sujet->description, 150, '...') }}</p>
+                                <p class="mb-4">{!! $sujet->description !!}</p>
 
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center text-muted">

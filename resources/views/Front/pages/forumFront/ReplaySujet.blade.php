@@ -84,7 +84,7 @@
                                                 🔒
                                                 @endif</a>
                                         </h3>
-                                        <p>{{ $sujet->description }}
+                                        <p>{!! $sujet->description !!}
                                         </p>
 
 
