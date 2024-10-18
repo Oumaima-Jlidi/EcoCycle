@@ -9,8 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CollecteController;
 use App\Http\Controllers\DechetController;
-
-
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\NotFoundController;
 use App\Http\Controllers\ProfileController;
@@ -73,6 +72,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
     Route::get('/users/export/pdf', [UserController::class, 'exportToPDF'])->name('users.export.pdf');
+    Route::resource('/event', EventController::class)->only(['index','store','destroy','edit','update']);
 
     Route::resource('/produit', ProduitController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
