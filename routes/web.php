@@ -25,13 +25,11 @@ use App\Http\Controllers\NotFoundController;
 */
 
 
-//Route::get('/AddPost', [ArticleController::class, 'create'])->name('articles.create');
+
 Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
 
-//Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
+
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
-//Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
- //Route::get('/articles', [ArticleController::class, 'store'])->name('articles.store');
 
 
 

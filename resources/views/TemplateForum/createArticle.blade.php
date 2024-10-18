@@ -2,12 +2,18 @@
 <html lang="en" data-theme="light">
 
 <head>
+    <!-- Définit le jeu de caractères utilisé dans le document -->
     <meta charset="UTF-8">
+    <!-- Indique aux navigateurs de se comporter en mode compatible -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Métadonnées pour le référencement et l'accessibilité -->
     <meta name="description" content="Forum & Community Discussions HTML Template">
     <meta name="keywords" content="bootstrap 5, forum, community, support, social, q&a, mobile, html">
     <meta name="robots" content="all,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Titre de la page affiché dans l'onglet du navigateur -->
     <title>➕ Add Article</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
