@@ -64,6 +64,7 @@
                         <i class="fas fa-box"></i>
                         <p>Gestion des Commandes</p>
                     </a>
+
                 <li class="nav-item {{ request()->routeIs('event.index') ? 'active' : '' }}">
                     <a href="{{ route('event.index') }}">
                         <i class="fas fa-user-shield"></i>
@@ -92,7 +93,8 @@
                         <i class="fas fa-file-alt"></i>
                         <p>gestion des dechets</p>
                     </a>
-                </li>
+
+
 
 
             </ul>
