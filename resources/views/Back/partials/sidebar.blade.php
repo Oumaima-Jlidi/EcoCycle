@@ -64,8 +64,35 @@
                         <i class="fas fa-box"></i>
                         <p>Gestion des Commandes</p>
                     </a>
+                <li class="nav-item {{ request()->routeIs('event.index') ? 'active' : '' }}">
+                    <a href="{{ route('event.index') }}">
+                        <i class="fas fa-user-shield"></i>
+                        <p>gestion des evenements </p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->routeIs('feedback.index') ? 'active' : '' }}">
+                    <a href="{{ route('feedback.index') }}">
+                        <i class="fas fa-user-shield"></i>
+                        <p>gestion des feedbacks </p>
+                    </a>
                 </li>
 
+
+
+
+                <li class="nav-item {{ request()->routeIs('collectes.index') ? 'active' : '' }}">
+                    <a href="{{ route('collectes.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des collectes</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs('dechets.index') ? 'active' : '' }}">
+                    <a href="{{ route('dechets.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des dechets</p>
+                    </a>
+                </li>
 
 
             </ul>
