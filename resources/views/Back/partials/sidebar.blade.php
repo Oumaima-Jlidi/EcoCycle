@@ -3,7 +3,8 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
-<h1>EcoCycle</h1>            </a>
+                <h1>EcoCycle</h1>
+            </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
                     <i class="gg-menu-right"></i>
@@ -44,6 +45,26 @@
                         <p>gestion des roles</p>
                     </a>
                 </li>
+
+
+                <li class="nav-item {{ request()->routeIs('produit.index') ? 'active' : '' }}">
+                    <a href="{{ route('produit.index') }}">
+                        <i class="fas fa-cubes"></i>
+                        <p>Gestion des Produits</p>
+                    </a>
+                <li class="nav-item {{ request()->routeIs('categories.index') ? 'active' : '' }}">
+                    <a href="{{ route('categories.index') }}">
+                        <i class="fas fa-tags"></i>
+                        <p>Gestion des Catégories</p>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item {{ request()->routeIs('order.index') ? 'active' : '' }}">
+                    <a href="{{ route('order.index') }}">
+                        <i class="fas fa-box"></i>
+                        <p>Gestion des Commandes</p>
+                    </a>
+
                 <li class="nav-item {{ request()->routeIs('event.index') ? 'active' : '' }}">
                     <a href="{{ route('event.index') }}">
                         <i class="fas fa-user-shield"></i>
@@ -56,19 +77,8 @@
                         <p>gestion des feedbacks </p>
                     </a>
                 </li>
-                
-                <li class="nav-item {{ request()->routeIs('produit.index') ? 'active' : '' }}"> 
-                     <a href="{{ route('produit.index') }}">
-                       <i class="fas fa-cubes"></i>
-                       <p>Gestion des Produits</p>
-                     </a>
-                </li>
-                <li class="nav-item {{ request()->routeIs('order.index') ? 'active' : '' }}"> 
-  <a href="{{ route('order.index') }}">
-    <i class="fas fa-box"></i>
-    <p>Gestion des Commandes</p>
-  </a>
-</li>
+
+
 
 
                 <li class="nav-item {{ request()->routeIs('collectes.index') ? 'active' : '' }}">
@@ -83,24 +93,24 @@
                         <i class="fas fa-file-alt"></i>
                         <p>gestion des dechets</p>
                     </a>
-                </li>
 
-              
+
+
+
             </ul>
             <div class="d-flex flex-column justify-content-end align-items-center" style="height:60vh;">
-    <div class="mb-4">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button
-                type="submit"
-                class="btn btn-danger"
-                style="padding: 10px 20px; border-radius: 5px;"
-            >
-                {{ __('Log Out') }}
-            </button>
-        </form>
-    </div>
-</div>
+                <div class="mb-4">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="btn btn-danger"
+                            style="padding: 10px 20px; border-radius: 5px;">
+                            {{ __('Log Out') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
 
 
 
