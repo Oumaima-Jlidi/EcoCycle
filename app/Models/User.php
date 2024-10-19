@@ -58,4 +58,8 @@ class User extends Authenticatable
         return $this->hasMany(Registration::class);
     }
     
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

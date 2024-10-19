@@ -50,6 +50,12 @@
                         <p>gestion des evenements </p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('feedback.index') ? 'active' : '' }}">
+                    <a href="{{ route('feedback.index') }}">
+                        <i class="fas fa-user-shield"></i>
+                        <p>gestion des feedbacks </p>
+                    </a>
+                </li>
                 
                 <li class="nav-item {{ request()->routeIs('produit.index') ? 'active' : '' }}"> 
                      <a href="{{ route('produit.index') }}">
