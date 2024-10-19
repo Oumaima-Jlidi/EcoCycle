@@ -80,7 +80,13 @@
                                 </div>
 
                                 <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
-                                    <td>{{ $produit->categorie->nom }}</td>
+                                    <td>
+                                        @if ($produit->categorie)
+                                        {{ $produit->categorie->nom }}
+                                        @else
+                                        <span class="text-muted">No Category</span>
+                                        @endif
+                                    </td>
                                 </div>
 
                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column justify-content-between" style="height: 200px; overflow: hidden;">
