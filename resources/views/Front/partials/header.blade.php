@@ -29,6 +29,7 @@
 
                             <a href="{{ route('events.indexFront') }}" class="nav-item nav-link">Events</a>
 
+                            <a href="{{ route('events.calender') }}" class="nav-item nav-link">Calender</a>
 
                         </div>
                         <div class="d-flex m-3 me-0">

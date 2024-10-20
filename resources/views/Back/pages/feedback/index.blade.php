@@ -183,12 +183,15 @@
 
                   <td>
                     <div class="form-button-action">
-                   
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-link btn-danger">
-                          <i class="fa fa-times"></i>
-                        </button>
+                    <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce feedback ?');">
+        <i class="fa fa-times"></i>
+    </button>
+</form>
+
+
                       </form>
                     </div>
                   </td>

@@ -16,6 +16,7 @@ use App\Http\Controllers\NotFoundController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegistrationController;
+use App\Models\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +83,14 @@ Route::middleware(['auth'])->group(function () {
     //Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
     //Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroyF'])->name('feedback.destroy');
     Route::match(['get', 'post'], '/events/details/{event}', [EventController::class, 'show'])->name('events.show');
-
+    Route::get('/calender', function () {
+        $events = Event::all(['id', 'title as title', 'start_date as start', 'end_date as end']); 
+        return response()->json($events);
+    });
+    Route::get('/calender/events', function () {
+        return view('Front.pages.event.calendar');  // Chemin vers votre vue calendar.blade.php
+    })->name('events.calender');
+    
 
 });
 
