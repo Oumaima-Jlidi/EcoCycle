@@ -46,7 +46,7 @@ class RegistrationController extends Controller
         $event->increment('participants_count');
     
         // Envoyer l'email de confirmation
-        //Mail::to(Auth::user()->email)->send(new RegistrationConfirmation($event));
+        Mail::to(Auth::user()->email)->send(new RegistrationConfirmation($event));
     
         return redirect()->back()->with('success', 'Inscription réussie pour l\'événement.');
     }
