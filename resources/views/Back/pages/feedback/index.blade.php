@@ -28,140 +28,9 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <!-- <div class="d-flex align-items-center">
-            <h4 class="card-title">Ajouter Feedback</h4>
-            <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
-              <i class="fa fa-plus"></i> Ajouter Feedback
-            </button>
-          </div> -->
         </div>
         <div class="card-body">
-          <!-- Modal add -->
-          <!-- <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header border-0">
-                  <h5 class="modal-title"> Ajouter un Événement </h5>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="{{ route('event.store') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Nom de l'Événement</label>
-                          <input type="text" name="title" class="form-control" placeholder="Nom de l'événement" required />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group form-group-default">
-                          <label>Date de Début</label>
-                          <input type="datetime-local" name="start_date" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group form-group-default">
-                          <label>Date de Fin</label>
-                          <input type="datetime-local" name="end_date" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Description</label>
-                          <input type="text" name="description" class="form-control" placeholder="Description" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Lieu</label>
-                          <input type="text" name="location" class="form-control" placeholder="Lieu" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Max Participants</label>
-                          <input type="number" name="max_participants" class="form-control" placeholder="Participants" required />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                      <button type="submit" class="btn btn-primary">Ajouter</button>
-                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-
-
-          <!-- Modal update -->
-          <!-- <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header border-0">
-                  <h5 class="modal-title">Modifier l'Événement</h5>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form id="editEventForm" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Nom de l'Événement</label>
-                          <input id="editTitle" type="text" name="title" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group form-group-default">
-                          <label>Date de Début</label>
-                          <input id="editStartDate" type="datetime-local" name="start_date" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group form-group-default">
-                          <label>Date de Fin</label>
-                          <input id="editEndDate" type="datetime-local" name="end_date" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Description</label>
-                          <input id="editDescription" type="text" name="description" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Lieu</label>
-                          <input id="editLocation" type="text" name="location" class="form-control" required />
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="form-group form-group-default">
-                          <label>Max Participants</label>
-                          <input id="editMaxParticipants" type="number" name="max_participants" class="form-control" required />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                      <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- Table -->
+       
           <div class="table-responsive">
             <table id="add-row" class="display table table-striped table-hover">
               <thead>
@@ -183,6 +52,13 @@
 
                   <td>
                     <div class="form-button-action">
+                    <form action="{{ route('feedback.toggle', $feedback->id) }}" method="POST" style="display:inline;">
+            @csrf
+            <button type="submit" class="btn btn-link {{ $feedback->status ? 'btn-success' : 'btn-warning' }}">
+                <i class="fa {{ $feedback->status ? 'fa-check' : 'fa-times' }}"></i>
+                {{ $feedback->status ? 'Désactiver' : 'Activer' }}
+            </button>
+        </form>
                     <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" style="display:inline;">
     @csrf
     @method('DELETE')
@@ -190,8 +66,6 @@
         <i class="fa fa-times"></i>
     </button>
 </form>
-
-
                       </form>
                     </div>
                   </td>
@@ -258,16 +132,7 @@
           pageLength: 5,
         });
       }); 
-//   function setEditEventData(event) {
-    
-//     document.getElementById('editEventForm').action = '/event/' + event.id;
-//     document.getElementById('editTitle').value = event.title;
-//     document.getElementById('editStartDate').value = event.start_date;
-//     document.getElementById('editEndDate').value = event.end_date;
-//     document.getElementById('editDescription').value = event.description;
-//     document.getElementById('editLocation').value = event.location;
-//     document.getElementById('editMaxParticipants').value = event.max_participants;
-//   }
+
 </script>
 
 @endsection

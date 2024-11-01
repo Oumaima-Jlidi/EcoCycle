@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Feedback extends Model
 {
     use HasFactory;
-    protected $fillable = ['event_id', 'user_id', 'comment', 'rating'];
+    protected $fillable = ['event_id', 'user_id', 'comment', 'rating', 'status'];
 
     public function event()
     {
@@ -19,4 +19,9 @@ class Feedback extends Model
     {
         return $this->belongsTo(User::class);
     }
+// filter active feedbacks
+    public function scopeActive($query)
+{
+    return $query->where('status', 1);
+}
 }
