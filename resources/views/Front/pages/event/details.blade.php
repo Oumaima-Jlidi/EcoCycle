@@ -18,8 +18,8 @@
     <div class="container">
         <h1>{{ $event->title }}</h1>
         @if(isset($averageRating))
-    <h4>Note moyenne : {{ number_format($averageRating, 1) }} / 5</h4>
-@endif
+            <h4>Note moyenne : {{ number_format($averageRating, 1) }} / 5</h4>
+        @endif
         <p>Date de l'événement : de {{ $event->start_date }} à {{ $event->end_date }}</p>
         <p>Description : {{ $event->description }}</p>
 
@@ -28,52 +28,59 @@
 
         @if($event->feedbacks->count() > 0)
             @foreach($event->feedbacks as $feedback)
-                <div class="feedback mb-3">
-                    <strong>{{ $feedback->user->name }}</strong>
-                    <div class="rating">
-                        @for($i = 1; $i <= 5; $i++)
-                            @if($i <= $feedback->rating)
-                                <span>&#9733;</span> <!-- étoile remplie -->
-                            @else
-                                <span>&#9734;</span> <!-- étoile vide -->
-                            @endif
-                        @endfor
+                @if($feedback->status == 1) <!-- Only display active feedbacks -->
+                    <div class="feedback mb-3">
+                        <strong>{{ $feedback->user->name }}</strong>
+                        <div class="rating">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $feedback->rating)
+                                    <span>&#9733;</span> <!-- étoile remplie -->
+                                @else
+                                    <span>&#9734;</span> <!-- étoile vide -->
+                                @endif
+                            @endfor
+                        </div>
+                        <p class="feedback-comment">{{ $feedback->comment }}</p>
+
+                        @if(Auth::check() && Auth::id() === $feedback->user_id)
+                            <!-- Bouton Modifier (Icône) -->
+                            <a href="#" class="edit-feedback" data-feedback-id="{{ $feedback->id }}">
+                                <i class="fas fa-edit"></i> <!-- Icône de modification -->
+                            </a>
+
+                            <!-- Formulaire de suppression -->
+                            <form action="{{ route('events.show', $event->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <input type="hidden" name="delete_feedback_id" value="{{ $feedback->id }}">
+                                <button type="submit" class="text-danger" style="background: none; border: none; cursor: pointer;">
+                                    <i class="fas fa-trash"></i> <!-- Icône de suppression -->
+                                </button>
+                            </form>
+
+                            <!-- Formulaire de mise à jour -->
+                            <form action="{{ route('events.show', $event->id) }}" method="POST" style="display:none;" class="edit-form">
+                                @csrf
+                                <input type="hidden" name="feedback_id" value="{{ $feedback->id }}">
+                                <textarea name="comment" required>{{ $feedback->comment }}</textarea>
+                                <div class="star-rating">
+                                    @for($i = 5; $i >= 1; $i--)
+                                        <input type="radio" id="star{{ $i }}_{{ $feedback->id }}" name="rating" value="{{ $i }}" {{ $i == $feedback->rating ? 'checked' : '' }} required>
+                                        <label for="star{{ $i }}_{{ $feedback->id }}">&#9733;</label>
+                                    @endfor
+                                </div>
+                                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                            </form>
+                        @endif
                     </div>
-                    <p class="feedback-comment">{{ $feedback->comment }}</p>
-
+                @else
+                    <!-- Message for the user if their feedback is deactivated -->
                     @if(Auth::check() && Auth::id() === $feedback->user_id)
-                        <!-- Bouton Modifier (Icône) -->
-                        <a href="#" class="edit-feedback" data-feedback-id="{{ $feedback->id }}">
-                            <i class="fas fa-edit"></i> <!-- Icône de modification -->
-                        </a>
-
-                        <!-- Formulaire de suppression -->
-                        <form action="{{ route('events.show', $event->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            <input type="hidden" name="delete_feedback_id" value="{{ $feedback->id }}">
-                            <button type="submit" class="text-danger" style="background: none; border: none; cursor: pointer;">
-                                <i class="fas fa-trash"></i> <!-- Icône de suppression -->
-                            </button>
-                        </form>
-
-                        <!-- Formulaire de mise à jour -->
-                        <form action="{{ route('events.show', $event->id) }}" method="POST" style="display:none;" class="edit-form">
-                            @csrf
-                            <input type="hidden" name="feedback_id" value="{{ $feedback->id }}">
-                            <textarea name="comment" required>{{ $feedback->comment }}</textarea>
-                            <div class="star-rating">
-                                @for($i = 5; $i >= 1; $i--)
-                                    <input type="radio" id="star{{ $i }}_{{ $feedback->id }}" name="rating" value="{{ $i }}" {{ $i == $feedback->rating ? 'checked' : '' }} required>
-                                    <label for="star{{ $i }}_{{ $feedback->id }}">&#9733;</label>
-                                @endfor
-                            </div>
-                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                        </form>
+                        <p class="text-warning">Votre feedback a été masqué par un administrateur.</p>
                     @endif
-                </div>
+                @endif
             @endforeach
         @else
-            <p>Aucun feedback n'a encore été donné pour cet événement.</p>
+            <p style="color: red;">Aucun feedback n'a encore été donné pour cet événement.</p>
         @endif
 
         <!-- Formulaire pour ajouter un feedback si l'utilisateur est connecté -->

@@ -43,6 +43,7 @@ public function show(Request $request, $id)
         }
     }
 
+    $feedbacks = $event->feedbacks()->where('status', 1)->get();
 
     return view('Front.pages.event.details', compact('event','averageRating'));
 }
@@ -54,12 +55,12 @@ public function show(Request $request, $id)
             // Validate the form data
             $data = $request->validate([
                 'title' => 'required|string|max:255',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date',
+                'start_date' => 'required|date|before_or_equal:end_date',
+                'end_date' => 'required|date|after_or_equal:start_date',
                 'location' => 'required|string|max:255',
-                'description' => 'required',
+                'description' => 'required|string|max:1000',
                 'max_participants' => 'required|integer',
-                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image validation
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
             ]);
     
             $data['user_id'] = Auth::id();
@@ -89,9 +90,14 @@ public function show(Request $request, $id)
     public function indexFront(Request $request)
     {
         $sortOrder = $request->input('sort', 'desc');
-        $events = Event::orderBy('start_date', $sortOrder)->paginate(4);
         $today = Carbon::now();
-        $upcomingEvents = Event::where('start_date', '>', $today)->orderBy('start_date', 'asc')->get();
+        $events = Event::where('start_date', '>', $today->subDays(15))
+        ->orderBy('start_date', $sortOrder)
+        ->paginate(6);
+        $upcomingEvents = Event::where('start_date', '>', $today)
+        ->where('start_date', '<=', $today->addDays(7))
+        ->orderBy('start_date', 'asc')
+        ->get();       
         return view('Front.pages.event.index', [
             'events' => $events,
             'upcomingEvents' => $upcomingEvents,
@@ -110,10 +116,10 @@ public function show(Request $request, $id)
         // Validate the form data
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'location' => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'required|string|max:1000',
             'max_participants' => 'required|integer',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image validation
         ]);
@@ -151,6 +157,14 @@ public function show(Request $request, $id)
         return redirect()->route('event.index')->with('success', 'Événement supprimé avec succès');
     }
 
+    public function destroyFront($id)
+    {
+        $event = Event::findOrFail($id); // Find the event by ID
+        $event->delete(); // Delete the event
+
+        return redirect()->route('events.indexFront')->with('success', 'Événement supprimé avec succès');
+    }
+
     // Show the edit form for an event
     public function edit($id)
     {
@@ -164,12 +178,12 @@ public function show(Request $request, $id)
         // Validate the form data
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'start_date' => 'required|date|before_or_equal:end_date', // Ensure start_date is before or equal to end_date
-            'end_date' => 'required|date|after_or_equal:start_date', // Ensure end_date is after or equal to start_date
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'max_participants' => 'required|integer|min:1', // Ensure at least one participant
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Image validation
+            'description' => 'required|string|max:1000',
+            'max_participants' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
         // Find the event by ID
@@ -201,14 +215,14 @@ public function show(Request $request, $id)
 
     public function updatefront(Request $request, $id)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'location' => 'required|string|max:255',
-            'max_participants' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string|max:1000',
+            'max_participants' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
         $event = Event::findOrFail($id);
@@ -269,5 +283,26 @@ public function show(Request $request, $id)
 
     // Télécharger le PDF avec un nom de fichier
     return $pdf->download('inscription_event_' . $event->title . '.pdf');
+}
+
+public function search(Request $request)
+{
+    $query = Event::query();
+
+    if ($request->filled('date')) {
+        $query->whereDate('start_date', $request->input('date'));
+    }
+
+    if ($request->filled('event')) {
+        $query->where('title', 'like', '%' . $request->input('event') . '%');
+    }
+
+    if ($request->filled('location')) {
+        $query->where('location', 'like', '%' . $request->input('location') . '%');
+    }
+
+    $events = $query->get();
+
+    return response()->json($events);
 }
 }
