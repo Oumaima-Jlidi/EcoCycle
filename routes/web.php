@@ -13,9 +13,12 @@ use App\Http\Controllers\DechetController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\NotFoundController;
+use App\Http\Controllers\CategorieController;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegistrationController;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Event;
 
 /*
@@ -48,8 +51,8 @@ Route::post('/like/{likeableId}/{likeableType}', [LikeController::class, 'likeOr
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::get('/Posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/Replays', [ReplayController::class, 'index'])->name('replays.index');
-Route::get('/produits', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
-Route::get('/produits/{id}', [ProduitController::class, 'show'])->name('produits.show');
+Route::get('/shop', [ProduitController::class, 'indexFront'])->name('produits.indexFront');
+Route::get('/shop/{id}', [ProduitController::class, 'show'])->name('produits.show');
 
 
 Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collects.indexfront');
@@ -86,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     //Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
     //Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroyF'])->name('feedback.destroy');
     Route::match(['get', 'post'], '/events/details/{event}', [EventController::class, 'show'])->name('events.show');
+
     Route::get('/calender', function () {
         $events = Event::all(['id', 'title as title', 'start_date as start', 'end_date as end']); 
         return response()->json($events);
@@ -96,27 +100,30 @@ Route::middleware(['auth'])->group(function () {
 
     
 
+
 });
 
 
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
-   
+
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
     Route::get('/users/export/pdf', [UserController::class, 'exportToPDF'])->name('users.export.pdf');
-    Route::resource('/event', EventController::class)->only(['index','store','destroy','edit','update']);
-    Route::resource('/feedback', FeedbackController::class)->only(['index','store','destroy','edit','update']);
+    Route::resource('/event', EventController::class)->only(['index', 'store', 'destroy', 'edit', 'update']);
+    Route::resource('/feedback', FeedbackController::class)->only(['index', 'store', 'destroy', 'edit', 'update']);
 
     Route::resource('/produit', ProduitController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/role', RoleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/order', OrderController::class)->only(['index', 'orderCount', 'store', 'show', 'update', 'destroy']);
     Route::fallback([NotFoundController::class, 'index']);
+    Route::resource('/categories', CategorieController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
     Route::resource('/collectes', CollecteController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/dechets', DechetController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
 
 
