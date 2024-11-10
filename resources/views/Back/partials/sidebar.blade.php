@@ -46,6 +46,23 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ request()->routeIs('event.index') ? 'active' : '' }}">
+                    <a href="{{ route('event.index') }}">
+                        <i class="fas fa-user-shield"></i>
+                        <p>gestion des evenements </p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->routeIs('feedback.index') ? 'active' : '' }}">
+                    <a href="{{ route('feedback.index') }}">
+                        <i class="fas fa-user-shield"></i>
+                        <p>gestion des feedbacks </p>
+                    </a>
+                </li>
+                
+             
+                 
+
+
 
                 <li class="nav-item {{ request()->routeIs('produit.index') ? 'active' : '' }}">
                     <a href="{{ route('produit.index') }}">
@@ -57,6 +74,7 @@
                         <i class="fas fa-tags"></i>
                         <p>Gestion des Catégories</p>
                     </a>
+
                 </li>
                 </li>
                 <li class="nav-item {{ request()->routeIs('order.index') ? 'active' : '' }}">

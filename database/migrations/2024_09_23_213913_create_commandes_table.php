@@ -15,11 +15,18 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->float('montant_total'); // Montant total de la commande
-            $table->string('statut')->default('en cours'); // Statut de la commande
-            $table->timestamp('date_commande'); // Date de la commande
-            $table->string('adresse_livraison'); // Adresse de livraison
+            $table->unsignedBigInteger('user_id');  
+            $table->float('montant_total');  
+            $table->string('statut')->default('en cours');  
+            $table->timestamp('date_commande');  
+            $table->string('adresse_livraison');  
+            $table->json('produits');  
             $table->timestamps();
+
+         
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('phone')->nullable(); 
+
         });
     }
 
@@ -30,6 +37,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('commandes', function (Blueprint $table) {
+            $table->dropForeign(['user_id']); // Drop foreign key constraint
+        });
+
         Schema::dropIfExists('commandes');
     }
 };

@@ -59,7 +59,7 @@ class CollecteController extends Controller
             'quantite_collecte' => 'required|numeric|min:0',
         ]);
 
-        // Mettre à jour la collecte
+        
         $collecte = Collecte::findOrFail($id);
         $collecte->update($request->all());
 

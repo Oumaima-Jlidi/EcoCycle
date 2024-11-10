@@ -39,7 +39,7 @@
 
       
    <!-- Navbar Header -->
-   @include('Front.partials.header')
+   @include('Front.partials.header' ) <!-- Use null coalescing operator to avoid undefined variable error -->
    <!-- End Navbar -->
 
         <!-- Modal Search Start -->
@@ -94,13 +94,16 @@
 
         
     <!-- JavaScript Libraries -->
-    <<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+ 
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ 
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-
+ 
     <!-- Template Javascript -->
     <script src="{{ asset('frontCss/js/main.js') }}"></script>
     </body>
