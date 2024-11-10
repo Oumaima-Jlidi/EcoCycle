@@ -67,7 +67,7 @@
 
                                         <div class="form-group mb-3">
                                             <label for="description">Description</label>
-                                            <textarea name="description" class="form-control" rows="5" required>{{ $sujet->description }}</textarea>
+                                            <textarea name="description" class="form-control" rows="5"  id="editor"required>{{ $sujet->description }}</textarea>
                                         </div>
                                         <div class="form-group mb-3">
     <label for="statut">Statut</label>

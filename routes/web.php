@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReplayController;
 use Illuminate\Support\Facades\Route;
@@ -9,8 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CollecteController;
 use App\Http\Controllers\DechetController;
-
-
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -18,6 +18,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotFoundController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\RegistrationController;
+use App\Models\Event;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,9 +80,39 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-     Route::get('/change-password', [PasswordController::class, 'changePassword'])->name('password.change');
-     Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
- 
+    Route::get('/change-password', [PasswordController::class, 'changePassword'])->name('password.change');
+    Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
+    Route::post('/events/{event}/register', [RegistrationController::class, 'register'])->name('events.register');
+    //Route::post('/event/{event}/feedback', [EventController::class, 'storeFeedback'])->name('event.feedback');
+    Route::get('/events', [EventController::class, 'indexFront'])->name('events.indexFront');
+    Route::get('/events/create', [EventController::class, 'createFront'])->name('events.createFront');
+    Route::post('/events', [EventController::class, 'storefront'])->name('events.storefront');
+    Route::get('events/{event}/editfront', [EventController::class, 'editFront'])->name('events.editfront');
+    Route::put('events/{event}', [EventController::class, 'updatefront'])->name('events.updatefront');
+    Route::delete('events/{event}', [EventController::class, 'destroyFront'])->name('events.destroy');
+    Route::get('events/search-events', [EventController::class, 'search'])->name('events.search');
+
+    Route::get('/send-reminders', function () {
+        Artisan::call('event:send-reminders');
+        return 'Reminders sent!';
+    });
+    Route::get('events/{id}/export-pdf', [EventController::class, 'exportPdf'])->name('events.exportPdf');
+    Route::post('/events/{event}/feedback', [FeedbackController::class, 'submitFeedback'])->name('events.feedback');
+    //Route::get('/events/details/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::post('/events/{event}/feedback', [FeedbackController::class, 'store'])->name('events.feedback');
+    //Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
+    //Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroyF'])->name('feedback.destroy');
+    Route::match(['get', 'post'], '/events/details/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::get('/calender', function () {
+        $events = Event::all(['id', 'title as title', 'start_date as start', 'end_date as end']); 
+        return response()->json($events);
+    });
+    Route::get('/calender/events', function () {
+        return view('Front.pages.event.calendar');  // Chemin vers votre vue calendar.blade.php
+    })->name('events.calender');
+
+    
+
 });
 
 
@@ -92,6 +125,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
     Route::get('/users/export/pdf', [UserController::class, 'exportToPDF'])->name('users.export.pdf');
+    Route::resource('/event', EventController::class)->only(['index','store','destroy','edit','update']);
+    Route::resource('/feedback', FeedbackController::class)->only(['index','store','destroy','edit','update']);
 
     Route::resource('/produit', ProduitController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
@@ -102,6 +137,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
     Route::resource('/collectes', CollecteController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/dechets', DechetController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
 
 
 });
