@@ -64,7 +64,7 @@ class CartController extends Controller
      
         $subtotal = 0;
         foreach ($cart as $item) {
-            $subtotal += $item['total_price'] ?? 0;  
+            $subtotal = $item['total_price'] + 7 ?? 0;  
         }
      
         return view('Front.pages.order.checkout', compact('cart', 'subtotal'));

@@ -16,5 +16,6 @@ class Commande extends Model
         'adresse_livraison',
         'produits',
         'user_id',
+        'phone'
     ];
 }

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
-
+use App\Exports\UsersExport; // Créer ce fichier d'export
+use PDF;
 
 class UserController extends Controller
 {
@@ -105,4 +106,24 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User supprimé avec succès');
     }
+
+    public function toggleStatus($id)
+{
+    $user = User::findOrFail($id);
+    $user->is_active = !$user->is_active; // Inverser l'état
+    $user->save();
+
+    return redirect()->route('users.index')->with('success', 'Statut de l\'utilisateur mis à jour avec succès');
+}
+
+
+
+public function exportToPDF()
+    {
+        $users = User::all();
+        $pdf = PDF::loadView('Back.pages.users.pdf', compact('users'));
+        return $pdf->download('users.pdf');
+    }
+
+
 }

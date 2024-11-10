@@ -60,6 +60,20 @@
 </li>
 
 
+                <li class="nav-item {{ request()->routeIs('collectes.index') ? 'active' : '' }}">
+                    <a href="{{ route('collectes.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des collectes</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs('dechets.index') ? 'active' : '' }}">
+                    <a href="{{ route('dechets.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des dechets</p>
+                    </a>
+                </li>
+
               
             </ul>
             <div class="d-flex flex-column justify-content-end align-items-center" style="height:60vh;">

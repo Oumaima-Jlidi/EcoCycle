@@ -23,8 +23,10 @@ return new class extends Migration
             $table->json('produits');  
             $table->timestamps();
 
-            // Foreign key constraint
+         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('phone')->nullable(); 
+
         });
     }
 

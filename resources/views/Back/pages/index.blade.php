@@ -24,11 +24,11 @@
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
-                        <div class="numbers">
-                          <p class="card-category">Visitors</p>
-                          <h4 class="card-title">1,294</h4>
-                        </div>
-                      </div>
+    <div class="numbers">
+        <p class="card-category">Utilisateurs</p>
+        <h4 class="card-title">{{ $usersCount }}</h4> <!-- Affiche le nombre d'utilisateurs -->
+    </div>
+</div>
                     </div>
                   </div>
                 </div>
@@ -62,12 +62,12 @@
                         <div
                           class="icon-big text-center icon-success bubble-shadow-small"
                         >
-                          <i class="fas fa-luggage-cart"></i>
+                          <i class="fas fa-dollar-sign"></i>
                         </div>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Sales</p>
+                          <p class="card-category">Total Income</p>
                           <h4 class="card-title">DT {{ $totalSales }}</h4>
                         </div>
                       </div>

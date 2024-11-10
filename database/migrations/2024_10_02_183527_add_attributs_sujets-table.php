@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('commandes', function (Blueprint $table) {
-            $table->json('user_id')->nullable(); // Adding the produits field
+        Schema::table('sujets', function (Blueprint $table) {
+            //
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('commandes', function (Blueprint $table) {
-            $table->dropColumn('user_id'); // Rolling back
+        Schema::table('sujets', function (Blueprint $table) {
+            //
         });
     }
 };

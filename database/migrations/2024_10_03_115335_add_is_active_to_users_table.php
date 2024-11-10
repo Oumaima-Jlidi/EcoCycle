@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('commandes', function (Blueprint $table) {
-            $table->json('produits')->nullable(); // Adding the produits field
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_active')->default(true);
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('commandes', function (Blueprint $table) {
-            $table->dropColumn('produits'); // Rolling back
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_active');
         });
     }
 };

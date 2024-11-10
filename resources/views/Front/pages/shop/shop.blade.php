@@ -434,7 +434,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         const productId = this.getAttribute('data-id');
-        const quantity = 1; // Set default quantity or fetch from a quantity input
+        const quantity = 1;  
 
         fetch('/add-to-cart', {
             method: 'POST',

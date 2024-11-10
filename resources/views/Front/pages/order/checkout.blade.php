@@ -12,9 +12,12 @@
                     <div class="form-item">
                         <label class="form-label my-3">Address<sup>*</sup></label>
                         <input type="text" name="adresse_livraison" class="form-control" placeholder="House Number and Street Name" required>
-                        </div>
-                    
-                </div>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Phone Number<sup>*</sup></label>
+                        <input type="tel" name="phone" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+             </div>
 
                 <div class="col-md-12 col-lg-6">
                     <h4 class="mb-4">Your Cart</h4>
@@ -28,7 +31,7 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $cartTotal = 0; // Initialize total for the cart
+                                    $cartTotal = 0;  
                                 @endphp
 
                                 @foreach(session('cart', []) as $id => $item)  
@@ -40,7 +43,7 @@
                                         <td>
                                             @php
                                                 $itemTotal = (isset($item['total_price']) && isset($item['quantite'])) ? $item['total_price'] : 0;
-                                                $cartTotal += $itemTotal; // Add item total to cart total
+                                                $cartTotal  = $itemTotal + 7; // Add item total to cart total
                                             @endphp
                                             <p class="mb-0" id="item-total-{{ $id }}">{{ number_format($itemTotal, 2) }} DT</p>
                                         </td>
