@@ -47,8 +47,17 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
@@ -175,9 +184,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editEventForm" method="POST" enctype="multipart/form-data">
+                <form id="editEventForm" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
                     @method('PUT')
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group form-group-default">
@@ -335,6 +353,44 @@
           pageLength: 5,
         });
       }); 
+
+      function validateForm() {
+    const requiredFields = document.querySelectorAll('input[required]');
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+        if (!field.value) {
+            isValid = false;
+            field.classList.add('is-invalid'); // Add error class
+        } else {
+            field.classList.remove('is-invalid'); // Remove error class
+        }
+    });
+
+    validateDates(); // Ensure date validation is also checked
+
+    return isValid;
+}
+
+      document.addEventListener("DOMContentLoaded", function () {
+    const startDateInput = document.querySelector("input[name='start_date']");
+    const endDateInput = document.querySelector("input[name='end_date']");
+
+    function validateDates() {
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
+
+      if (startDate > endDate) {
+        endDateInput.setCustomValidity("La date de fin ne peut pas être antérieure à la date de début.");
+      } else {
+        endDateInput.setCustomValidity(""); // Clear error if dates are valid
+      }
+    }
+
+    startDateInput.addEventListener("change", validateDates);
+    endDateInput.addEventListener("change", validateDates);
+  });
+
   function setEditEventData(event) {
     
     document.getElementById('editEventForm').action = '/event/' + event.id;

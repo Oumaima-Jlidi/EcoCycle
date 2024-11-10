@@ -98,7 +98,7 @@
                                                     @csrf
                                                     <input type="hidden" name="type" value="like">
                                                     <button type="submit" class="btn btn-link p-0 text-decoration-none">
-                                                        ❤️ Like ({{ $sujet->likes->where('type', 'Like')->count() }})
+                                                        ❤️ Like ({{ $sujet->likes->where('type', 'like')->count() }})
                                                     </button>
                                                 </form>
                                             </div>
@@ -129,6 +129,7 @@
                                                     <a class="fw-bold mb-0" href="javascript:void(0)">{{ $replay->user->name }}</a>
                                                 </div>
                                                 <p class="mb-0">{!! $replay->content !!}</p>
+                                                <p>Sentiment : {{ $replay->sentiment }}</p>
                                                 <div class="post-links d-flex mt-1">
 
                                                     <form action="{{ route('like', ['likeableId' => $replay->id, 'likeableType' => 'reply']) }}" method="POST" style="margin-right: 15px;">

@@ -2,7 +2,7 @@
 @section('content') 
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">Liste des Collectes</h3>
+      <h3 class="fw-bold mb-3">Liste des Collectes</h3> 
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -10,13 +10,14 @@
           <div class="card-header">
             <div class="d-flex align-items-center">
               <h4 class="card-title">Ajouter Collecte</h4>
+              <button id="exportButton" class="btn btn-success" onclick="exportTableToPDF()">Exporter en PDF</button>
               <button
                 class="btn btn-primary btn-round ms-auto"
                 data-bs-toggle="modal"
                 data-bs-target="#addRowModal"
               >
                 <i class="fa fa-plus"></i>
-                Ajouter Collecte
+                Ajouter Collecte 
               </button>
             </div>
           </div>
@@ -269,6 +270,13 @@
               </div>
             </div>
 
+ 
+
+            <!--affiche tableau -->
+
+
+
+
             <div class="table-responsive">
               <table
                 id="add-row"
@@ -327,11 +335,67 @@
                 </tbody>
               </table>
             </div>
+
+
+
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- script pdf -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+
+
+
+<script>
+  async function exportTableToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Titre du document
+    doc.setFontSize(20);
+    doc.text("Liste des Collectes", 14, 22);
+
+    // Récupération des données du tableau
+    const table = document.getElementById("add-row");
+    const rows = table.getElementsByTagName("tr");
+    const data = [];
+
+    // Récupérer les en-têtes
+    const headers = Array.from(rows[0].querySelectorAll("th")).map(th => th.innerText);
+    data.push(headers.slice(0, -1)); // Ajouter les en-têtes au tableau des données (ignorer le dernier)
+
+    // Parcours des lignes du tableau pour extraire les données
+    for (let i = 1; i < rows.length; i++) { // Commencez à 1 pour ignorer l'en-tête
+      const cols = rows[i].getElementsByTagName("td");
+      const rowData = [];
+      for (let j = 0; j < cols.length; j++) {
+        if (j < cols.length - 1) { // Ignorer la dernière colonne "Action"
+          rowData.push(cols[j].innerText); // Ajouter le texte de chaque cellule sauf "Action"
+        }
+      }
+      data.push(rowData); // Ajouter les données de la ligne au tableau
+    }
+
+    // Ajout des données au PDF
+    doc.autoTable({
+      head: [data[0]], // En-têtes
+      body: data.slice(1), // Données (ignorer la première ligne qui contient les en-têtes)
+      startY: 30, // Positionnement vertical
+    });
+
+    // Génération du PDF
+    doc.save("collectes.pdf");
+  }
+</script>
+
+
+
 
   <script>
     function setEditCollecteData(id, typeDechet, zoneCollecte, statut, dateCollecte, quantiteCollecte) {

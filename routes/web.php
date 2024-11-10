@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Artisan;
+use App\Models\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/events', [EventController::class, 'storefront'])->name('events.storefront');
     Route::get('events/{event}/editfront', [EventController::class, 'editFront'])->name('events.editfront');
     Route::put('events/{event}', [EventController::class, 'updatefront'])->name('events.updatefront');
+    Route::delete('events/{event}', [EventController::class, 'destroyFront'])->name('events.destroy');
+    Route::get('events/search-events', [EventController::class, 'search'])->name('events.search');
+
     Route::get('/send-reminders', function () {
         Artisan::call('event:send-reminders');
         return 'Reminders sent!';
@@ -85,6 +89,18 @@ Route::middleware(['auth'])->group(function () {
     //Route::put('/feedback/{feedback}', [FeedbackController::class, 'update'])->name('feedback.update');
     //Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroyF'])->name('feedback.destroy');
     Route::match(['get', 'post'], '/events/details/{event}', [EventController::class, 'show'])->name('events.show');
+
+    Route::get('/calender', function () {
+        $events = Event::all(['id', 'title as title', 'start_date as start', 'end_date as end']); 
+        return response()->json($events);
+    });
+    Route::get('/calender/events', function () {
+        return view('Front.pages.event.calendar');  // Chemin vers votre vue calendar.blade.php
+    })->name('events.calender');
+
+    
+
+
 });
 
 
@@ -107,6 +123,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
     Route::resource('/collectes', CollecteController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/dechets', DechetController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
+
+
 });
 
 
