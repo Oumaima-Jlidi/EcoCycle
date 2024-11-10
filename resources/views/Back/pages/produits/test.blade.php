@@ -82,6 +82,18 @@
                   <form action="{{ route('produit.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+                      <!-- Dropdown for selecting a category from the database -->
+                      <div class="col-sm-12">
+                        <div class="form-group form-group-default">
+                          <label>Catégorie de Produit</label>
+                          <select name="categorie_id" class="form-control" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            @foreach($categories as $categorie)
+                            <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
                           <label>Nom</label>
@@ -158,6 +170,17 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group form-group-default">
+                          <label>Catégorie de Produit</label>
+                          <select id="editCategorie" name="categorie_id" class="form-control" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            @foreach($categories as $categorie)
+                            <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="form-group form-group-default">
                           <label>Nom</label>
                           <input
                             id="editName"
@@ -225,7 +248,7 @@
                       <button
                         type="button"
                         class="btn btn-danger"
-                        data-dismiss="modal">
+                        id="cancelButton">
                         Annuler
                       </button>
                     </div>
@@ -245,6 +268,7 @@
                   <th>quantite</th>
                   <th>Prix</th>
                   <th>Description</th>
+                  <th>Categorie</th>
                   <th style="width: 10%">Action</th>
                 </tr>
               </thead>
@@ -255,6 +279,7 @@
                   <th>quantite</th>
                   <th>prix</th>
                   <th>Description</th>
+                  <th>Categorie</th>
                   <th>Action</th>
                 </tr>
               </tfoot>
@@ -265,6 +290,8 @@
                   <td>{{ $produit->quantite }}</td>
                   <td>{{ $produit->prix }}</td>
                   <td>{{ $produit->description }}</td>
+                  <td>{{ $produit->categorie ? $produit->categorie->nom : 'Aucune catégorie' }}</td>
+
                   <td>
                     <div style="display: flex; align-items: center;">
                       <button
@@ -378,5 +405,10 @@
     document.getElementById('editQuantite').value = quantite;
     document.getElementById('editDescription').value = description;
   }
+</script>
+<script>
+  document.getElementById('cancelButton').addEventListener('click', function() {
+    window.location.href = '/produit'; // Redirect to /produit
+  });
 </script>
 @endsection
