@@ -96,10 +96,17 @@
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="text-dark fs-5 fw-bold mb-0">{{ $produit->prix }} DT / {{ $produit->quantite }} Kg</p>
-                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
-                                        </a>
-                                    </div>
+                                            <a
+                                                href="#"
+                                                class="btn border border-secondary rounded-pill px-3 text-primary add-to-cart"
+                                                data-id="{{ $produit->id }}"
+                                            >
+                                                <i
+                                                    class="fa fa-shopping-bag me-2 text-primary"
+                                                ></i>
+                                                Add to cart
+                                            </a>
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -120,12 +127,53 @@
 </div>
 </div>
 
-
-@endsection
-
+<!-- Fruits Shop End-->
 <script>
-    function updatePriceFilter() {
+     function updatePriceFilter() {
         const price = document.getElementById('rangeInput').value;
         window.location.href = `?max_price=${price}`;
     }
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.getAttribute('data-id');
+        const quantity = 1;  
+
+        fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({ product_id: productId, quantity: quantity }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                title: data.message,
+                text: "Do you want to add more products or go to the cart?",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Go to Cart',
+                cancelButtonText: 'Continue Shopping'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/cart'; // Redirect to the cart page
+                }
+                // If the user cancels, simply close the alert and continue shopping
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Could not add product to cart.',
+                icon: 'error'
+            });
+        });
+    });
+});
 </script>
+
+@endsection
