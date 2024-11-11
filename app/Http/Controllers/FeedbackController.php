@@ -6,14 +6,14 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\User;
-
+use App\Models\Notification;
 class FeedbackController extends Controller
 {
     public function index()
     {
         $feedbacks = Feedback::with('event', 'user')->get();
-       
-        return view('Back.pages.feedback.index', compact('feedbacks'));
+        $notifications = Notification::where('is_read', false)->get();
+        return view('Back.pages.feedback.index', compact('feedbacks','notifications'));
     }
 
   

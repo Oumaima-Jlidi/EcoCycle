@@ -8,14 +8,16 @@ use App\Models\ReplaySujet;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log; 
+use App\Models\Notification;
+
 class ReplayController extends Controller
 {
     public function index()
     {
         $replays = ReplaySujet::where('user_id', Auth::id())->get();
+        $notifications = Notification::where('is_read', false)->get();
 
-
-        return view('TemplateForum/replay', compact('replays'));
+        return view('TemplateForum/replay', compact('replays','notifications'));
     }
 
     public function delete($id)

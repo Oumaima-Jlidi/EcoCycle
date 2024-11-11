@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sujet;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
+
 class PostController extends Controller
 {
     public function index()
     {
         $sujets = Sujet::where('user_id', Auth::id())->get();
-
-        return view('TemplateForum/dashPosts' , compact('sujets')); 
+        $notifications = Notification::where('is_read', false)->get();
+        return view('TemplateForum/dashPosts' , compact('sujets', 'notifications')); 
     }
     public function delete($id)
     {

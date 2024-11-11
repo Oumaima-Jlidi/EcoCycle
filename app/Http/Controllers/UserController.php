@@ -7,13 +7,14 @@ use App\Models\User;
 use App\Models\Role;
 use App\Exports\UsersExport; // Créer ce fichier d'export
 use PDF;
+use App\Models\Notification;
 
 class UserController extends Controller
 {
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $users = User::all();
-        return view ('Back.pages.users.index')->with('users',$users);
+        return view ('Back.pages.users.index')->with(['users'=>$users, 'notifications'=>$notifications]);
     }
 
     /**

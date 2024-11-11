@@ -13,6 +13,7 @@ class Notification extends Model
         'commande_id',
         'message',
         'is_read',
+        'user_id' 
     ];
 
     public function commande()

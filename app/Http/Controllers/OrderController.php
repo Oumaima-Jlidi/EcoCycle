@@ -212,7 +212,11 @@ class OrderController extends Controller
             'commande_id' => $commande->id,
             'message' => 'A new order has been placed.',
             'is_read' => false,
+            'user_id' => auth()->id(),
         ]);
+
+       $email = auth()->user()->email;
+       dd($email);
         session()->forget('cart');
     
         return redirect()->route('produits.indexFront')->with('success', 'Your order has been placed successfully!');

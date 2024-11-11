@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Models\Notification;
 class EventController extends Controller
 {
     // Display the list of events in the back-end
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $events = Event::all();
-        return view('Back.pages.Events.ListeEvents')->with('events', $events);
+        return view('Back.pages.Events.ListeEvents')->with(['events'=>$events, 'notifications'=>$notifications]);
     }
 
 public function show(Request $request, $id)

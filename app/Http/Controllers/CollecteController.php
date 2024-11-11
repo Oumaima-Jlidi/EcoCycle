@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collecte;
+use App\Models\Notification;
 
 class CollecteController extends Controller
 {
     public function indexfront()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $collectes = Collecte::all();
-        return view('Front.pages.collect.index')->with('collectes', $collectes);
+        return view('Front.pages.collect.index')->with(['collectes'=> $collectes, 'notifications'=> $notifications]);
 
     }
 
