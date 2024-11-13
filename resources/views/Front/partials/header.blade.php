@@ -21,6 +21,7 @@
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
                     <a href="index.html" class="nav-item nav-link {{ request()->is('index.html') ? 'active' : '' }}">Home</a>
+                    <a href="{{ route('articles.indexfront') }}" class="nav-item nav-link">Articles</a>
                     <a href="{{ route('produits.indexFront') }}" class="nav-item nav-link {{ request()->is('produits/indexFront') ? 'active' : '' }}">Shop</a>
                     <a href="{{ route('forum.index') }}" class="nav-item nav-link {{ request()->is('forum') ? 'active' : '' }}">Forum</a>
                     <a href="{{ route('collects.indexfront') }}" class="nav-item nav-link {{ request()->is('collects/indexfront') ? 'active' : '' }}">Collects</a>

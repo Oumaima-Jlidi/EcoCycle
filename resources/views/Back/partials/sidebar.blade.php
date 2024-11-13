@@ -52,12 +52,7 @@
                         <p>gestion des evenements </p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('feedback.index') ? 'active' : '' }}">
-                    <a href="{{ route('feedback.index') }}">
-                        <i class="fas fa-user-shield"></i>
-                        <p>gestion des feedbacks </p>
-                    </a>
-                </li>
+              
                 
              
                  
@@ -83,12 +78,7 @@
                         <p>Gestion des Commandes</p>
                     </a>
 
-                <li class="nav-item {{ request()->routeIs('event.index') ? 'active' : '' }}">
-                    <a href="{{ route('event.index') }}">
-                        <i class="fas fa-user-shield"></i>
-                        <p>gestion des evenements </p>
-                    </a>
-                </li>
+              
                 <li class="nav-item {{ request()->routeIs('feedback.index') ? 'active' : '' }}">
                     <a href="{{ route('feedback.index') }}">
                         <i class="fas fa-user-shield"></i>
@@ -111,6 +101,13 @@
                         <i class="fas fa-file-alt"></i>
                         <p>gestion des dechets</p>
                     </a>
+                </li>
+                <li class="nav-item {{ request()->routeIs('articles.index') ? 'active' : '' }}">
+                    <a href="{{ route('articles.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>gestion des articles</p>
+                    </a>
+                </li>
 
 
 

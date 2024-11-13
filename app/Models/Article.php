@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
-}
+  use HasFactory;
+
+  protected $fillable = ['titre', 'contenu', 'image', 'Nom_auteur', 'date_publication'];
+
+  public function categorie()
+  {
+      return $this->hasOne(CategorieArticle::class);
+  }}

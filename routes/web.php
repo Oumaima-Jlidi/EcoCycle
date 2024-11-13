@@ -11,6 +11,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CollecteController;
 use App\Http\Controllers\DechetController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ArticleController;
+
+
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -78,6 +81,8 @@ Route::get('/', function () {
  
 
 Route::get('/collects', [CollecteController::class, 'indexfront'])->name('collects.indexfront');
+Route::get('/articles/front', [ArticleController::class, 'indexfront'])->name('articles.indexfront');
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -153,6 +158,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
 
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
+    Route::resource('/articles', ArticleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
 
 });

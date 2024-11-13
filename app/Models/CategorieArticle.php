@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategorieArticle extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+    protected $fillable = ['nom', 'description', 'article_id'];
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }
