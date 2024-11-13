@@ -87,6 +87,9 @@ Route::get('/articles/front', [ArticleController::class, 'indexfront'])->name('a
 
 
 
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('TemplateForum.AddSujet');

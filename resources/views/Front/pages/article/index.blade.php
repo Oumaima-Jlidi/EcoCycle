@@ -28,6 +28,10 @@
     <section class="dashboard">
     <div class="container" style="padding-top: 64px;">
     <div class="row">
+    
+
+
+
         <!-- Sidebar avec la liste des catégories -->
         <div class="col-lg-3">
             <h4>Catégories</h4>
@@ -69,6 +73,7 @@
                                 <p class="card-text"><strong>Nom de l'auteur:</strong> {{ $article->Nom_auteur }}</p>
                                 <p class="card-text"><strong>Categorie:</strong> {{ $article->categorie_id }}</p>
                                 <p class="card-text"><strong>Date de creation de l'article:</strong> {{ $article->date_publication }}</p>
+                                
                               
                             </div>
                             
