@@ -24,6 +24,8 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\CategorieArticleController;
+
 
 use Illuminate\Support\Facades\Artisan;
 
@@ -159,6 +161,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
     Route::resource('/articles', ArticleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('/categorie_articles', CategorieArticleController::class)->only(['index', 'store', 'update', 'destroy']);
 
 
 });

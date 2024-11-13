@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Article;
+use App\Models\CategorieArticle; // Assurez-vous que cette ligne est présente
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -16,14 +17,16 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
-        return view('Back.pages.articles.index')->with('articles', $articles);
+        $categories = CategorieArticle::all(); // Inclure les catégories
+        return view('Back.pages.articles.index', compact('articles', 'categories'));
     }
 
     
     public function create()
     {
-      return view('Back.pages.articles.create');
-    }
+      $categories = CategorieArticle::all(); // Récupérer toutes les catégories
+      
+      return view('Back.pages.articles.create', compact('categories'));    }
     public function store(Request $request)
     {
         // Validation des champs
@@ -33,6 +36,7 @@ class ArticleController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // image facultative
             'Nom_auteur' => 'required|string|max:255',
             'date_publication' => 'required|date',
+            'categorie_id' => 'required|exists:categorie_articles,id', // Valider que la catégorie existe
         ]);
     
         // Gestion de l'upload d'image
@@ -48,6 +52,7 @@ class ArticleController extends Controller
             'image' => $imagePath,
             'Nom_auteur' => $request->input('Nom_auteur'),
             'date_publication' => $request->input('date_publication'),
+            'categorie_id' => $request->input('categorie_id'), // Enregistrement de la catégorie
         ]);
     
         return redirect()->route('articles.index')->with('success', 'Article ajouté avec succès');
@@ -59,7 +64,8 @@ class ArticleController extends Controller
     public function edit($id)
     {
       $article = Article::findOrFail($id);
-      return view('Back.pages.articles.edit', compact('article'));
+      $categories = CategorieArticle::all(); // Récupérer toutes les catégories
+      return view('Back.pages.articles.edit', compact('article', 'categories'));
     }
     public function show($id)
     {
@@ -76,6 +82,8 @@ class ArticleController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // image facultative
             'Nom_auteur' => 'required|string|max:255',
             'date_publication' => 'required|date',
+            'categorie_id' => 'required|exists:categories,id',
+
         ]);
     
         // Trouver l'article à mettre à jour
@@ -102,6 +110,7 @@ class ArticleController extends Controller
             'image' => $imagePath,
             'Nom_auteur' => $request->input('Nom_auteur'),
             'date_publication' => $request->input('date_publication'),
+            'categorie_id' =>  $request->input('categorie_id'),
         ]);
     
         return redirect()->route('articles.index')->with('success', 'Article mis à jour avec succès');

@@ -108,6 +108,13 @@
                         <p>gestion des articles</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('categorie_articles.index') ? 'active' : '' }}">
+    <a href="{{ route('categorie_articles.index') }}">
+        <i class="fas fa-folder"></i>
+        <p>Gestion des Catégories d'Articles</p>
+    </a>
+</li>
+
 
 
 

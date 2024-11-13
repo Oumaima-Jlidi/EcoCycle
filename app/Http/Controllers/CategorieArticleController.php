@@ -2,83 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CategorieArticle;
+
 
 class CategorieArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    // affichage back office 
     public function index()
     {
-        //
+        $categories = CategorieArticle::withCount('articles')->get();
+        return view('Back.pages.articles.index_categorie', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // affichage front office 
+  /*  public function shop()
     {
-        //
-    }
+        $categories = CategorieArticle::withCount('articles')->get();
+        return view('Front.pages.shop.shop', compact('categories'));
+    }*/
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // create
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        CategorieArticle::create($data);
+        return redirect()->route('categorie_articles.index')->with('success', 'Catégorie ajoutée avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // update
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $categorie = CategorieArticle::findOrFail($id);
+        $categorie->nom = $request->nom;
+        $categorie->description = $request->description;
+        $categorie->save();
+
+        return redirect()->route('categorie_articles.index')->with('success', 'Catégorie mise à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    // delete
     public function destroy($id)
     {
-        //
+        $categorie = CategorieArticle::findOrFail($id);
+        $categorie->delete();
+        return redirect()->route('categorie_articles.index')->with('success', 'Catégorie supprimée avec succès');
     }
 }

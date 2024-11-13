@@ -9,7 +9,7 @@
         <div class="card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <h4 class="card-title">Ajouter Artiicle</h4>
+              <h4 class="card-title">Ajouter Article</h4>
               <button
                 class="btn btn-primary btn-round ms-auto"
                 data-bs-toggle="modal"
@@ -49,7 +49,7 @@
                     <p class="small">
                       Créer un nouveau Article
                     </p>
-                    <form action="{{ route('articles.store') }}" method="POST">
+                    <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data">
                       @csrf 
                       <div class="row">
                         <div class="col-sm-12">
@@ -62,7 +62,7 @@
                               placeholder="Nom article"
                               required
                                pattern="[A-Za-zÀ-ÿ\s]+"
-  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
+                               title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -73,10 +73,10 @@
                               type="text"
                               name="contenu"
                               class="form-control"
-                              placeholder="contenu article"
+                              placeholder="Contenu article"
                               required
                               pattern="[A-Za-zÀ-ÿ\s]+"
-  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
+                              title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -90,7 +90,7 @@
                               placeholder="Nom_auteur"
                               required
                                pattern="[A-Za-zÀ-ÿ\s]+"
-  title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
+                               title="Veuillez entrer uniquement des caractères alphabétiques et des espaces."
                             />
                           </div>
                         </div>
@@ -105,7 +105,28 @@
                             />
                           </div>
                         </div>
-
+                        <div class="col-sm-12">
+                          <div class="form-group form-group-default">
+                            <label>Image (facultatif)</label>
+                            <input
+                              type="file"
+                              name="image"
+                              class="form-control"
+                              accept="image/*"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="form-group form-group-default">
+                            <label>Catégorie</label>
+                            <select name="categorie_id" class="form-control" required>
+                              <option value="">Sélectionner une catégorie</option>
+                              @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
                       </div>
                       <div class="modal-footer border-0">
                         <button
@@ -127,7 +148,8 @@
                 </div>
               </div>
             </div>
-<!-- Modal pour Modifier l'Article -->
+
+        <!-- Modal pour Modifier l'Article -->
 <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -167,6 +189,19 @@
                 <input id="editDate_publication" type="date" name="date_publication" class="form-control" required/>
               </div>
             </div>
+
+            <!-- Champ pour la catégorie -->
+            <div class="col-sm-12">
+              <div class="form-group form-group-default">
+                <label>Catégorie</label>
+                <select id="editCategorie_id" name="categorie_id" class="form-control" required>
+                  <option value="">Sélectionner une catégorie</option>
+                  @foreach($categories as $categorie)
+                    <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
           </div>
           <div class="modal-footer border-0">
             <button type="submit" class="btn btn-primary">Mettre à jour</button>
@@ -180,26 +215,24 @@
 
 
             <div class="table-responsive">
-              <table
-                id="add-row"
-                class="display table table-striped table-hover"
-              >
+              <table id="add-row" class="display table table-striped table-hover">
                 <thead>
                   <tr>
                     <th>Nom Article</th>
                     <th>Contenu</th>
                     <th>Nom_auteur </th>
                     <th>Date de publication</th>
-                    
+                    <th>Catégorie</th> <!-- Nouvelle colonne pour la catégorie -->
                     <th style="width: 10%">Action</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                  <th>Nom Article</th>
+                    <th>Nom Article</th>
                     <th>Contenu</th>
                     <th>Nom_auteur </th>
                     <th>Date de publication</th>
+                    <th>Catégorie</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -210,7 +243,7 @@
                       <td>{{ $article->contenu }}</td>
                       <td>{{ $article->Nom_auteur }}</td>
                       <td>{{ $article->date_publication }}</td>
-                    
+                      <td>{{ $article->categorie_id  }}</td> <!-- Affichage de la catégorie -->
                       <td>
                         <div style="display: flex; align-items: center;">
                           <button
@@ -218,15 +251,15 @@
                             title="Modifier l Article"
                             data-bs-toggle="modal"
                             data-bs-target="#editRowModal"
-                            onclick="setEditArticleData('{{ $article->id }}', '{{ $article->titre }}', '{{ $article->contenu }}', '{{ $article->Nom_auteur }}', '{{ $article->date_publication }}',)"
+                            onclick="editArticle({{ $article->id }})"
                           >
                             <i class="fa fa-edit"></i>
                           </button>
-                          <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="margin-left: 10px;">
-                            @csrf
+                          <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                            @csrf 
                             @method('DELETE')
-                            <button type="submit" class="btn btn-link btn-danger" title="Supprimer la Article">
-                              <i class="fa fa-times"></i>
+                            <button type="submit" class="btn btn-link btn-danger" title="Supprimer">
+                              <i class="fa fa-trash"></i>
                             </button>
                           </form>
                         </div>
@@ -243,22 +276,24 @@
   </div>
 
   <script>
-function setEditArticleData(id, titre, contenu, Nom_auteur , date_publication) {
-    // Met à jour l'action du formulaire d'édition avec l'ID spécifique de l'article
-    document.getElementById('editArticleForm').action = '/articles/' + id;
+  function editArticle(id) {
+  // Récupérer les informations de l'article avec l'ID et remplir le formulaire
+  fetch(`/articles/${id}/edit`)
+    .then(response => response.json())
+    .then(data => {
+      // Remplir les champs du formulaire avec les données de l'article
+      document.getElementById('editTitre').value = data.titre;
+      document.getElementById('editContenu').value = data.contenu;
+      document.getElementById('editNom_auteur').value = data.Nom_auteur;
+      document.getElementById('editDate_publication').value = data.date_publication;
+      
+      // Remplir le champ de catégorie avec la catégorie actuelle
+      document.getElementById('editCategorie_id').value = data.categorie_id;
 
-    // Pré-remplit le champ "titre" avec la valeur actuelle de l'article
-    document.getElementById('editTitre').value = titre; // Modifié
-
-    // Pré-remplit le champ "contenu" avec la valeur actuelle de l'article
-    document.getElementById('editContenu').value = contenu;
-
-    // Pré-remplit le champ "Nom de l'auteur" avec la valeur actuelle de l'article
-    document.getElementById('editNom_auteur').value = Nom_auteur ;
-
-    // Pré-remplit le champ "date de publication" avec la valeur actuelle de l'article
-    document.getElementById('editDate_publication').value = date_publication; // Modifié
+      // Mettre à jour l'action du formulaire pour la mise à jour de l'article
+      document.getElementById('editArticleForm').action = `/articles/${id}`;
+    });
 }
-</script>
 
-@endsection
+  </script>
+@endsection 

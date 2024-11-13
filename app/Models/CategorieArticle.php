@@ -9,10 +9,10 @@ class CategorieArticle extends Model
 {
   use HasFactory;
 
-    protected $fillable = ['nom', 'description', 'article_id'];
+    protected $fillable = ['nom', 'description'];
 
-    public function article()
+    public function articles()
     {
-        return $this->belongsTo(Article::class);
+      return $this->hasMany(Article::class,'categorie_id');
     }
 }
