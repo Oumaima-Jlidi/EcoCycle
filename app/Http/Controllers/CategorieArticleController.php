@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategorieArticle;
+use App\Models\Article;
 
 
 class CategorieArticleController extends Controller
@@ -17,12 +18,20 @@ class CategorieArticleController extends Controller
         return view('Back.pages.articles.index_categorie', compact('categories'));
     }
 
-    // affichage front office 
-  /*  public function shop()
+  /*  // affichage front office 
+    public function shop()
     {
         $categories = CategorieArticle::withCount('articles')->get();
         return view('Front.pages.shop.shop', compact('categories'));
     }*/
+    public function showArticles()
+    {
+        $categories = CategorieArticle::all(); // Récupère toutes les catégories
+        $articles = Article::all(); // Récupère tous les articles
+    
+        return view('front.pages.articles', compact('articles', 'categories')); // Envoie les catégories et les articles à la vue
+    }
+    
 
     // create
     public function store(Request $request)

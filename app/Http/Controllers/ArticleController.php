@@ -8,12 +8,45 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
 
-  public function indexfront()
+  public function indexfront(Request $request)
+  {
+      // Récupérer toutes les catégories avec le nombre d'articles associés
+      $categories = CategorieArticle::withCount('articles')->get();
+  
+      // Récupérer le terme de recherche
+      $searchTerm = $request->input('search');
+      
+      // Récupérer les articles selon la catégorie sélectionnée et/ou le titre recherché
+      $categoryId = $request->input('category_id');
+      
+      $articlesQuery = Article::query();
+  
+      // Si une catégorie est sélectionnée, filtrer les articles par catégorie
+      if ($categoryId) {
+          $articlesQuery->where('categorie_id', $categoryId);
+      }
+  
+      // Si un terme de recherche est fourni, filtrer les articles par titre
+      if ($searchTerm) {
+          $articlesQuery->where('titre', 'like', '%' . $searchTerm . '%');
+      }
+  
+      // Ajouter la pagination (3 articles par page)
+      $articles = $articlesQuery->paginate(3);
+  
+      // Passe les articles, les catégories, et le terme de recherche à la vue
+      return view('Front.pages.article.index', compact('articles', 'categories', 'searchTerm'));
+  }
+  
+  
+
+  /*public function indexfront()
     {
         $articles = Article::all();
         return view('Front.pages.article.index')->with('articles', $articles);
 
-    }
+    }*/
+    
     public function index()
     {
         $articles = Article::all();
