@@ -6,6 +6,7 @@ use App\Models\Commande;
 use App\Models\Produit;
 use Illuminate\Http\Request;
 use App\Models\User; 
+use App\Models\Notification;
 
 
 class OrderController extends Controller
@@ -17,7 +18,8 @@ class OrderController extends Controller
     {
         $orders = Commande::all();
         $ordersCount = Commande::count();
-        return view('Back.pages.commandes.listCommande')->with(['orders' => $orders, 'ordersCount' => $ordersCount]);
+        $notifications = Notification::where('is_read', false)->get();
+        return view('Back.pages.commandes.listCommande')->with(['orders' => $orders, 'ordersCount' => $ordersCount,'notifications' => $notifications]);
     }
 
    public function orderCount()
@@ -33,11 +35,12 @@ class OrderController extends Controller
     $approvedOrders = Commande::where('statut', 'approuvé')->get();  
     $totalSales = $approvedOrders->sum('montant_total');   
     $usersCount = User::count();
-    
+    $notifications = Notification::where('is_read', false)->get();
     return view('Back.pages.index', [
         'ordersCount' => $ordersCount,
         'totalSales' => $totalSales,
         'usersCount' => $usersCount,
+        'notifications' => $notifications
     ]);
    }
 
@@ -202,8 +205,18 @@ class OrderController extends Controller
             'phone' => $validatedData['phone'], 
         ];
     
-        Commande::create($orderData);
-    
+        $commande = Commande::create($orderData);
+
+        
+        Notification::create([
+            'commande_id' => $commande->id,
+            'message' => 'A new order has been placed.',
+            'is_read' => false,
+            'user_id' => auth()->id(),
+        ]);
+
+       $email = auth()->user()->email;
+       dd($email);
         session()->forget('cart');
     
         return redirect()->route('produits.indexFront')->with('success', 'Your order has been placed successfully!');

@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\User;
+use App\Models\Notification;
 
 class ProfileController extends Controller
 {
     public function show($id)
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $user = User::findOrFail($id);
-        return view('Front.pages.profileuser.profile', compact('user'));
+        return view('Front.pages.profileuser.profile', compact('user','notifications'));
     }
 
     public function edit($id)

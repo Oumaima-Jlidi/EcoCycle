@@ -17,7 +17,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\NotifcationController;
+;
 use App\Http\Controllers\NotFoundController;
 use App\Http\Controllers\CategorieController;
 
@@ -127,7 +128,7 @@ Route::middleware(['auth'])->group(function () {
         return response()->json($events);
     });
     Route::get('/calender/events', function () {
-        return view('Front.pages.event.calendar');  // Chemin vers votre vue calendar.blade.php
+        return view('Front.pages.event.calendar');  
     })->name('events.calender');
 
     
@@ -142,7 +143,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin', [OrderController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/sales', [OrderController::class, 'salesTot'])->name('sales.total');
-
+    Route::get('/admin/notifications/{id}/read', [NotifcationController::class, 'markAsRead'])->name('notifications.read');
 
     Route::get('/users/export/pdf', [UserController::class, 'exportToPDF'])->name('users.export.pdf');
  
@@ -163,8 +164,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
 
     Route::post('/feedback/{id}/toggle', [FeedbackController::class, 'ActivateDesactivateStatus'])->name('feedback.toggle');
+ 
     Route::resource('/articles', ArticleController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('/categorie_articles', CategorieArticleController::class)->only(['index', 'store', 'update', 'destroy']);
+ 
 
 
 });

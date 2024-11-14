@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Collecte;
 use App\Models\Dechet;
-
+use App\Models\Notification;
 
 class DechetController extends Controller
 {
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $collectes = Collecte::all();
-        $dechets = Dechet::with('collecte')->get(); // Fetch dechets with their related collecte
-        return view('Back.pages.dechets.index', compact('dechets','collectes'));
+        $dechets = Dechet::with('collecte')->get(); 
+        return view('Back.pages.dechets.index', compact('dechets','collectes','notifications'));
     }
 
     public function create()
     {
-        $collectes = Collecte::all(); // Fetch collectes to associate with the dechets
+        $collectes = Collecte::all(); 
         return view('Back.pages.dechets.create', compact('collectes','collectes'));
     }
 

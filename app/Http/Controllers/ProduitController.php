@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Categorie;
@@ -16,10 +17,10 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {     $notifications = Notification::where('is_read', false)->get();
         $categories = Categorie::all();
         $produits = Produit::all();
-        return view('Back.pages.produits.test', compact('produits', 'categories'));
+        return view('Back.pages.produits.test', compact('produits', 'categories','notifications'));
 
         //return view('Back.pages.test', compact('produits'));
     }

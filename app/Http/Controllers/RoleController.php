@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\Notification;
 
 class RoleController extends Controller
 {
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $role = Role::all();
-        return view ('Back.pages.roles.index')->with('role',$role);
+        return view ('Back.pages.roles.index')->with(['role'=> $role,'notifications'=>$notifications]);
     }
 
     public function create()

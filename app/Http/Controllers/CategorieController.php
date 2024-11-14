@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categorie;
-
+use App\Models\Notification;
 class CategorieController extends Controller
 {
 
     // affichage back office 
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $categories = Categorie::withCount('produits')->get();
-        return view('Back.pages.produits.list', compact('categories'));
+        return view('Back.pages.produits.list', compact('categories','notifications'));
     }
 
     // affichage front office 
