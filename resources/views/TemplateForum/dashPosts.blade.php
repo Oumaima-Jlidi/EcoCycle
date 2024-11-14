@@ -60,11 +60,11 @@
                                     <div class="d-flex align-items-center text-muted">
                                         <div class="d-flex align-items-center me-3">
                                             <i class="bi bi-hand-thumbs-up fs-lg me-1"></i>
-                                            <span class="fs-sm">8</span>
+                                            <span class="fs-sm">{{ $sujet->likes->where('type', 'like')->count() }}</span>
                                         </div>
                                         <div class="d-flex align-items-center me-3">
                                             <i class="bi bi-chat-dots fs-lg me-1"></i>
-                                            <span class="fs-sm">7</span>
+                                            <span class="fs-sm">{{ $sujet->replays->count() }}</span>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end pt-3 pt-sm-0">

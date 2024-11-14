@@ -9,9 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> ➕ Add Post</title>
 
-    
+    <!-- Importation du fichier CSS et JS compilé -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
 </head>
 
 <body>
@@ -22,14 +21,11 @@
 @extends('Front.frontIndex')
 @section('frontSection')
 
-  
-
     <div class="vine-wrapper">
         <section class="dashboard">
             <div class="container" style="padding-top: 64px;">
                 <div class="row">
-                    <div class="col-sm-6 col-lg-3 mb-5">
-                    </div>
+                    <div class="col-sm-6 col-lg-3 mb-5"></div>
 
                     <h4 class="mb-0" data-aos="fade-down" data-aos-easing="linear" style="margin-left: 45px;">
                         <i class="bi bi-plus-circle-dotted me-2"></i> Add Subject
@@ -39,8 +35,8 @@
                         <div class="col-11" style="margin-left: 45px;">
                             <div class="dashboard-card">
                                 <div class="dashboard-body">
-                              
-                                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                                    <!-- Formulaire avec un identifiant pour la validation -->
+                                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" id="add-post-form">
                                         @csrf 
 
                                         <div class="row g-3">
@@ -51,15 +47,15 @@
 
                                             <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                 <div class="upload-image my-3">
-                                                    <p class="mb-2">PNG, JPG, GIF, WEBP or MP4. Max 200mb.</p>
+                                                    <p class="mb-2">PNG, JPG, GIF, WEBP ou MP4. Max 200mb.</p>
                                                     <input type="file" name="image" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12" data-aos="fade-up" data-aos-easing="linear">
                                                 <label class="form-label">Description</label>
-                                                <textarea class="form-custom form-custom-textarea form-control" name="description" rows="12" id="editor" style="display: none;"></textarea>
-                                                </div>
+                                                <textarea class="form-custom form-custom-textarea form-control" name="description" rows="12" id="editor"></textarea>
+                                            </div>
                                         </div>
 
                                         <div class="d-flex pt-5" data-aos="fade-up" data-aos-easing="linear">
@@ -76,7 +72,6 @@
         </section>
     </div>
 @endsection
-
 
 </body>
 </html>
