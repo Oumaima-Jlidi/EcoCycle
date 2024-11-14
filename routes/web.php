@@ -118,7 +118,7 @@ Route::middleware(['auth'])->group(function () {
         return response()->json($events);
     });
     Route::get('/calender/events', function () {
-        return view('Front.pages.event.calendar');  // Chemin vers votre vue calendar.blade.php
+        return view('Front.pages.event.calendar');  
     })->name('events.calender');
 
     

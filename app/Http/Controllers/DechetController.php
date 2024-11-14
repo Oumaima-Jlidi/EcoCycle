@@ -12,13 +12,13 @@ class DechetController extends Controller
     public function index()
     {  $notifications = Notification::where('is_read', false)->get();
         $collectes = Collecte::all();
-        $dechets = Dechet::with('collecte')->get(); // Fetch dechets with their related collecte
+        $dechets = Dechet::with('collecte')->get(); 
         return view('Back.pages.dechets.index', compact('dechets','collectes','notifications'));
     }
 
     public function create()
     {
-        $collectes = Collecte::all(); // Fetch collectes to associate with the dechets
+        $collectes = Collecte::all(); 
         return view('Back.pages.dechets.create', compact('collectes','collectes'));
     }
 

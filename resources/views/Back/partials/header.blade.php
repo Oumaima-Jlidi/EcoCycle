@@ -176,7 +176,7 @@
                                     href="{{ route('notifications.read', $notification->id) }}"
                                 >
                                     <div class="notif-icon notif-primary">
-                                        <i class="fa fa-user-plus"></i>
+                                        <i class="fa fa-box"></i>
                                     </div>
                                     <div class="notif-content">
                                         <span

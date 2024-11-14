@@ -9,16 +9,16 @@ use App\Models\Notification;
 class CollecteController extends Controller
 {
     public function indexfront()
-    {  $notifications = Notification::where('is_read', false)->get();
+    { 
         $collectes = Collecte::all();
-        return view('Front.pages.collect.index')->with(['collectes'=> $collectes, 'notifications'=> $notifications]);
+        return view('Front.pages.collect.index')->with(['collectes'=> $collectes]);
 
     }
 
     public function index()
-    {
+    { $notifications = Notification::where('is_read', false)->get();
         $collectes = Collecte::all();
-        return view('Back.pages.collectes.index')->with('collectes', $collectes);
+        return view('Back.pages.collectes.index')->with(['collectes'=> $collectes, 'notifications'=> $notifications]);
     }
 
     public function create()

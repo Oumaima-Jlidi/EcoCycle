@@ -8,10 +8,7 @@
         <div class="col-lg-12">
             <div class="row g-4">
                 <div class="col-xl-3">
-                    <div class="input-group w-100 mx-auto d-flex">
-                        <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                        <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                    </div>
+                   
                 </div>
                 <div class="col-6"></div>
                 <div class="col-xl-3">
@@ -95,10 +92,10 @@
                                         <p style="flex-grow: 1;">{{ $produit->description }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <p class="text-dark fs-5 fw-bold mb-0">{{ $produit->prix }} DT / {{ $produit->quantite }} Kg</p>
+                                    <p class="text-dark fs-5 fw-bold mb-0">{{ $produit->prix }} DT / {{ $produit->quantite }}&nbsp;&nbsp;&nbsp;<i class="fas fa-box"></i></p>
                                             <a
                                                 href="#"
-                                                class="btn border border-secondary rounded-pill px-3 text-primary add-to-cart"
+                                                class="btn border border-secondary rounded-pill px-3 text-primary {{ $produit->quantite == 0 ? 'disabled' : '' }} add-to-cart"
                                                 data-id="{{ $produit->id }}"
                                             >
                                                 <i
@@ -159,9 +156,9 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
                 cancelButtonText: 'Continue Shopping'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/cart'; // Redirect to the cart page
+                    window.location.href = '/cart'; 
                 }
-                // If the user cancels, simply close the alert and continue shopping
+ 
             });
         })
         .catch(error => {
