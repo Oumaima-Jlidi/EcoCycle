@@ -56,7 +56,7 @@
                                     @endif
 
                                     <!-- Form to edit the subject -->
-                                    <form action="{{ route('posts.update', $sujet->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('posts.update', $sujet->id) }}" method="POST" enctype="multipart/form-data" id="add-post-form">
                                         @csrf
                                         @method('PUT')
 
