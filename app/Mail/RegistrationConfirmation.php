@@ -20,7 +20,8 @@ class RegistrationConfirmation extends Mailable
     public function build()
     {
         return $this->subject('Confirmation d\'inscription à l\'événement: ' . $this->event->title)
-        ->view('registration_confirmation') // Make sure this matches the view file name
+        ->view('registration_confirmation')
         ->with(['event' => $this->event]); 
     }
+    
 }

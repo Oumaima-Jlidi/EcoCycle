@@ -5,22 +5,15 @@ use App\Models\Article;
 use App\Models\CategorieArticle; // Assurez-vous que cette ligne est présente
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
-
+use App\Models\Notification;
 class ArticleController extends Controller
 {
 
-/*  public function exportPdf($articleId)
-  {
-      $article = Article::findOrFail($articleId);
-  
-      // Génération du PDF avec la vue "pdfArticle"
-      $pdf = PDF::loadView('Front.pages.article.pdfArticle', compact('article'));
-  
-      // Retourner le PDF au navigateur
-      return $pdf->download('article_' . $article->id . '.pdf');
-  }*/
+ 
+
   public function indexfront(Request $request)
-  {
+  {     
+
       // Récupérer toutes les catégories avec le nombre d'articles associés
       $categories = CategorieArticle::withCount('articles')->get();
   
@@ -59,10 +52,10 @@ class ArticleController extends Controller
     }*/
     
     public function index()
-    {
+    {   $notifications = Notification::where('is_read', false)->get();
         $articles = Article::all();
         $categories = CategorieArticle::all(); // Inclure les catégories
-        return view('Back.pages.articles.index', compact('articles', 'categories'));
+        return view('Back.pages.articles.index', compact('articles', 'categories','notifications'));
     }
 
     

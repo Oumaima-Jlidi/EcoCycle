@@ -43,6 +43,7 @@
                     <div class="d-flex align-items-center">
                         <h4 class="card-title">Ajouter Categorie</h4>
                         <button
+
                             class="btn btn-primary btn-round ms-auto"
                             data-bs-toggle="modal"
                             data-bs-target="#addRowModal">
@@ -78,7 +79,7 @@
                                     <p class="small">
                                         Créer un nouveau Categorie
                                     </p>
-                                    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form id="formCateg" action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
 
@@ -105,6 +106,16 @@
 
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    your form is not valid !
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -246,66 +257,47 @@
 
 <script>
     $(document).ready(function() {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-            pageLength: 5,
-            initComplete: function() {
-                this.api()
-                    .columns()
-                    .every(function() {
-                        var column = this;
-                        var select = $(
-                                '<select class="form-select"><option value=""></option></select>'
-                            )
-                            .appendTo($(column.footer()).empty())
-                            .on("change", function() {
-                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                                column
-                                    .search(val ? "^" + val + "$" : "", true, false)
-                                    .draw();
-                            });
-
-                        column
-                            .data()
-                            .unique()
-                            .sort()
-                            .each(function(d, j) {
-                                select.append(
-                                    '<option value="' + d + '">' + d + "</option>"
-                                );
-                            });
-                    });
-            },
-        });
-
-        $("#add-row").DataTable({
-            pageLength: 5,
-        });
-
-        var action =
-            '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-        $("#addRowButton").click(function() {
-
-            $("#add-row").dataTable().fnAddData([
-                $("#addName").val(),
-                $("#addMarque").val(),
-                $("#addPrix").val(),
-                $("#addDescription").val(),
-                action
-            ]);
-            $("#addRowModal").modal("hide");
-        });
-
+        $('#add-row').DataTable();
     });
-
 
     function setEditProduitData(id, nom, description) {
         $('#editProduitForm').attr('action', '/categories/' + id);
         $('#editName').val(nom);
         $('#editDescription').val(description);
     }
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('formCateg').addEventListener('submit', function(event) {
+            const name = document.getElementById('addName').value.trim();
+            const desc = document.getElementById('addDescription').value.trim();
+
+            // Définir des critères spécifiques pour chaque champ
+            const namePattern = /^.{5,}$/; // Nom : au moins 5 caractères
+            const descPattern = /^.{10,}$/; // Description : au moins 10 caractères
+
+            let isValid = true;
+
+            // Validation du nom
+            if (!namePattern.test(name)) {
+                isValid = false;
+                alert("Le nom doit contenir au moins 5 caractères.");
+            }
+
+            // Validation de la description
+            if (!descPattern.test(desc)) {
+                isValid = false;
+                alert("La description doit contenir au moins 10 caractères.");
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Empêcher la soumission du formulaire
+
+                // Afficher la toast d'erreur
+                const toastElement = document.getElementById('errorToast');
+                const bootstrapToast = new bootstrap.Toast(toastElement);
+                bootstrapToast.show();
+            }
+        });
+    });
 </script>
 
 @endsection

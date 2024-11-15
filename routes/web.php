@@ -44,7 +44,9 @@ use App\Models\Event;
 */
 
 
-
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity']);
+ Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/AddPost', [PostController::class, 'create'])->name('posts.add');
 
 Route::get('/Forum', [PostController::class, 'Forum'])->name('forum.index');
@@ -69,9 +71,7 @@ Route::get('/shop', [ProduitController::class, 'indexFront'])->name('produits.in
 Route::get('/shop/{id}', [ProduitController::class, 'show'])->name('produits.show');
 Route::post('/add-to-cart', [OrderController::class,'addToCart'])->name('add.to.cart');
 
-Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
-Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity']);
- Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
 
  
  

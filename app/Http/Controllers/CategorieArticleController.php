@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategorieArticle;
 use App\Models\Article;
-
+use App\Models\Notification;
 
 class CategorieArticleController extends Controller
 {
 
     // affichage back office 
     public function index()
-    {
+    {  $notifications = Notification::where('is_read', false)->get();
         $categories = CategorieArticle::withCount('articles')->get();
-        return view('Back.pages.articles.index_categorie', compact('categories'));
+        return view('Back.pages.articles.index_categorie', compact('categories', 'notifications'));
     }
 
   /*  // affichage front office 

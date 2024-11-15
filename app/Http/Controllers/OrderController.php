@@ -7,8 +7,8 @@ use App\Models\Produit;
 use Illuminate\Http\Request;
 use App\Models\User; 
 use App\Models\Notification;
-
-
+use App\Mail\OrderMail;
+use Illuminate\Support\Facades\Mail; 
 class OrderController extends Controller
 {
     
@@ -215,8 +215,9 @@ class OrderController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-       $email = auth()->user()->email;
-       dd($email);
+      
+       $userEmail = auth()->user()->email;
+       Mail::to($userEmail)->send(new OrderMail($commande));
         session()->forget('cart');
     
         return redirect()->route('produits.indexFront')->with('success', 'Your order has been placed successfully!');

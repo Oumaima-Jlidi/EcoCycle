@@ -79,7 +79,7 @@
                   <p class="small">
                     Créer un nouveau Produit
                   </p>
-                  <form action="{{ route('produit.store') }}" method="POST" enctype="multipart/form-data">
+                  <form id="formProduct" action="{{ route('produit.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                       <!-- Dropdown for selecting a category from the database -->
@@ -139,7 +139,16 @@
               </div>
             </div>
           </div>
-
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  your form is not valid !
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
           <!-- Modal   update  -->
           <div
             class="modal fade"
@@ -385,10 +394,11 @@
       // Assurez-vous que vous avez le même nombre de données que de colonnes dans le tableau
       $("#add-row").dataTable().fnAddData([
         $("#addName").val(), // 1ère colonne: Nom
-        $("#addMarque").val(), // 2ème colonne: Marque
+        $("#addMarque").val(), // 2ème colonne: Quantité
         $("#addPrix").val(), // 3ème colonne: Prix
         $("#addDescription").val(), // 4ème colonne: Description
-        action // 5ème colonne: Action (boutons modifier/supprimer)
+        "Catégorie par défaut", // 5ème colonne: Catégorie (vous pouvez adapter cette valeur)
+        action // 6ème colonne: Action (boutons modifier/supprimer)
       ]);
       $("#addRowModal").modal("hide");
     });
@@ -409,6 +419,56 @@
 <script>
   document.getElementById('cancelButton').addEventListener('click', function() {
     window.location.href = '/produit'; // Redirect to /produit
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('formProduct').addEventListener('submit', function(event) {
+      const name = document.getElementById('addName').value.trim();
+      const desc = document.getElementById('addDescription').value.trim();
+      const prix = document.getElementById('addPrix').value.trim();
+      const quantite = document.getElementById('addMarque').value.trim();
+
+      // Définir des critères spécifiques pour chaque champ
+      const namePattern = /^.{5,}$/; // Nom : au moins 5 caractères
+      const descPattern = /^.{10,}$/; // Description : au moins 10 caractères
+      const prixPattern = /^\d+(\.\d{1,2})?$/; // Prix : nombre positif, max 2 décimales
+      const quantitePattern = /^\d+$/; // Quantité : entier positif
+
+      let isValid = true;
+
+      // Validation du nom
+      if (!namePattern.test(name)) {
+        isValid = false;
+        alert("Le nom doit contenir au moins 5 caractères.");
+      }
+
+      // Validation de la description
+      if (!descPattern.test(desc)) {
+        isValid = false;
+        alert("La description doit contenir au moins 10 caractères.");
+      }
+
+      // Validation du prix
+      if (!prixPattern.test(prix) || parseFloat(prix) <= 0) {
+        isValid = false;
+        alert("Le prix doit être un nombre positif.");
+      }
+
+      // Validation de la quantité
+      if (!quantitePattern.test(quantite) || parseInt(quantite, 10) <= 0) {
+        isValid = false;
+        alert("La quantité doit être un entier positif.");
+      }
+
+      if (!isValid) {
+        event.preventDefault(); // Empêcher la soumission du formulaire
+
+        // Afficher la toast d'erreur
+        const toastElement = document.getElementById('errorToast');
+        const bootstrapToast = new bootstrap.Toast(toastElement);
+        bootstrapToast.show();
+      }
+    });
   });
 </script>
 @endsection

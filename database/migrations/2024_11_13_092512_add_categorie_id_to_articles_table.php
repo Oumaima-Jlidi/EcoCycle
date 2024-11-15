@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->unsignedBigInteger('categorie_article_id')->nullable(); // Ajoute la colonne
-            $table->foreign('categorie_article_id')->references('id')->on('categorie_articles'); // Ajoute la clé étrangère
+            $table->unsignedBigInteger('categorie_id')->nullable(); 
+            $table->foreign('categorie_id')->references('id')->on('categorie_articles');  
         });
     }
     
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropForeign(['categorie_article_id']);
-            $table->dropColumn('categorie_article_id');
+            $table->dropForeign(['categorie_id']);
+            $table->dropColumn('categorie_id');
         });
     }
     

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom'); // Nom de la catégorie (ex: Technologie)
             $table->string('description'); // Nom de la catégorie (ex: Technologie)
-            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade'); // Lien vers la commande
+           
 
             $table->timestamps();
         });

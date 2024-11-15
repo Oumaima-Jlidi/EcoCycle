@@ -193,7 +193,6 @@
                             </div>
                         </div>
                     </li>
-                    
                 </ul>
             </li>
 
@@ -293,9 +292,11 @@
                         <img
                             src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('default-profile.png') }}"
                             alt="Profile Image"
-                            class="rounded-full h-12 w-12 object-cover"
+                            class="rounded-full object-cover"
+                            style="width: 40px; height: 40px"
                         />
                     </div>
+
                     <span class="profile-username">
                         <span class="op-7">Hi,</span>
                         {{ auth()->user()->name ? auth()->user()->name : ''  }}
